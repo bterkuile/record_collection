@@ -24,6 +24,12 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry", ">= 0.1"
   spec.add_development_dependency "rails", ">= 4.2.0"
   spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency "slim-rails"
+  spec.add_development_dependency "coffee-rails"
+  spec.add_development_dependency "sass-rails"
+  spec.add_development_dependency "font-awesome-rails"
+  spec.add_development_dependency "jquery-rails"
+
 
   spec.add_runtime_dependency 'active_attr', '>= 0.8.5'
   spec.add_runtime_dependency 'activemodel', '>= 4.1'

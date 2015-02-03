@@ -1,6 +1,7 @@
 class MultiSelect
   setup: (table) ->
     return unless table and table.length
+    table.data 'multi_select', @
     @set 'table', table
 
     @set 'resource', table.data('resource')
@@ -50,14 +51,16 @@ class MultiSelect
 
   #selected_records: -> @table.find("td.selection input:checked").map( -> $(this).parents('tr').data('record') )
   selected_records: -> @table.find("td.selection .checked").map( -> $(this).parents('tr').data('record') )
-  selected_ids: -> @selected_records().map( -> this.id )
-
-@multi_select = new MultiSelect()
+  selected_ids: -> @selected_records().map( -> this.id ).toArray()
+root = @
+root.multi_select = new MultiSelect()
 $.fn.multi_select = ->
   if @.hasClass('with-selection') or @.prop('tagName') is 'TABLE'
     select = new MultiSelect()
+    root.multi_select = select
     select.setup @
   else
-    @.find('table.with-selection').each (el)->
+    @.find('table.with-selection').each (i, el)->
       select = new MultiSelect()
+      root.multi_select = select
       select.setup $(el)

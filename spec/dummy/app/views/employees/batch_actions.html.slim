@@ -1,0 +1,10 @@
+h1 Edit multiple employees
+= form_for @collection, url: [:process_batch, @collection.record_class] do |f|
+  .form-inputs
+    = f.label :section
+    = f.text_field :section
+  .form-actions= f.submit
+.page-actions
+  = link_to 'Back', employees_path
+
+

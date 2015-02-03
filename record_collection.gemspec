@@ -29,8 +29,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "sass-rails"
   spec.add_development_dependency "font-awesome-rails"
   spec.add_development_dependency "jquery-rails"
+  spec.add_development_dependency "js-routes"
 
 
   spec.add_runtime_dependency 'active_attr', '>= 0.8.5'
   spec.add_runtime_dependency 'activemodel', '>= 4.1'
+  spec.add_runtime_dependency "railties", ">= 3.1"
 end

@@ -5,7 +5,7 @@ module RecordCollection
 
     attr_reader :collection
     protected :collection
-    delegate :first, :last, :size, :length, :count, to: :collection
+    delegate :first, :last, :size, :length, :count, :empty?, :any?, to: :collection
 
     class << self
       def model_name
@@ -50,6 +50,17 @@ module RecordCollection
     def save
       valid? && perform!
     end
+
+    def persisted?
+      # Behave like an update in forms
+      true
+    end
+
+    def new_record?
+      # Behave like an update in forms
+      false
+    end
+
 
     # This method returns nil when the values of `attr` in the collection
     # are mixed. Otherwise the value itself. For boolean attributes the

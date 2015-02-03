@@ -1,7 +1,7 @@
 
 h1 Listing Employees
 
-table
+table.with-selection
   thead
     tr
       th Name
@@ -9,12 +9,13 @@ table
       th colspan="3"
   tbody
     - @employees.each do |employee|
-      tr
+      tr data-record=employee.attributes.to_json
         td= employee.name
         td= employee.section
         td= link_to 'Show', employee
         td= link_to 'Edit', edit_employee_path(employee)
         td= link_to 'Destroy', employee, method: :delete, data: {confirm: 'Are you sure?' }
 br
+button onclick="window.location = Routes.batch_actions_employees_path({ids: multi_select.selected_ids()})" Actions
 
 = link_to 'New Employee', new_employee_path

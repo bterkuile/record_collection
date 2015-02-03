@@ -48,6 +48,7 @@ class EmployeesController < ApplicationController
   def batch_actions
     @employees = Employee.find(Array.wrap(params[:ids]))
     @collection = Employee::Collection.new(@employees)
+    redirect_to employees_path, alert: 'No employees selected' if @collection.empty?
   end
 
   def process_batch

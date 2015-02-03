@@ -1,0 +1,20 @@
+@import font-awesome
+// Checkboxes
+.selection-toggle-all
+  cursor: pointer
+  &.unchecked
+    @extend .fa, .fa-lg, .fa-square-o
+  &.checked
+    @extend .fa, .fa-2x, .fa-check-square-o
+    color: #449
+.checker
+  cursor: pointer
+  &.unchecked
+    @extend .fa, .fa-lg, .fa-square-o
+    color: #999
+  &.checked
+    @extend .fa, .fa-lg, .fa-check-square-o
+    color: #050
+table.with-selection
+  td.selection
+    width: 46px

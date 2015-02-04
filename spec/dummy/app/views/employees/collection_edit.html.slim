@@ -1,5 +1,5 @@
 h1 Edit multiple employees
-= form_for @collection, url: [:batch_update, @collection.record_class] do |f|
+= form_for @collection, url: [:collection_update, @collection.record_class] do |f|
   = render 'form_errors', target: @collection
   .form-inputs= f.optional_text_field :section
   .form-inputs= f.optional_boolean :admin

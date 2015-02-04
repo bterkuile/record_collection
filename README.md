@@ -32,20 +32,20 @@ This call behaves exactly as the normal resources :... call,
 but adds:
 ```ruby
  collection do
-   get :batch_edit
-   post :batch_update
+   get :collection_edit
+   post :collection_update
  end
 ```
 So the route definition in `config/routes.rb` defined as:
 ```ruby
-  batch_resources :employees, except: [:new]
+  collection_resources :employees, except: [:new]
 ```
 is exactly the same as:
 ```ruby
   resources :employees, except: [:new] do
     collection do
-      get :batch_edit
-      post :batch_update
+      get :collection_edit
+      post :collection_update
     end
   end
 ```
@@ -74,26 +74,26 @@ See the [active_attr](https://github.com/cgriego/active_attr) gem for
 attribute definitions.
 
 ## Defining your controllers
-If you already used the specification `batch_resources :employees` in
+If you already used the specification `collection_resources :employees` in
 your [config/routes.rb](spec/dummy/config/routes.rb) file you can add
 the actions in your controller typically looking like:
 ```ruby
 class EmployeesController < ApplicationController
   # your standard actions here
 
-  # GET /employees/batch_edit?ids[]=1&ids[]=3&...
-  def batch_edit
+  # GET /employees/collection_edit?ids[]=1&ids[]=3&...
+  def collection_edit
     @collection = Employee::Collection.find(params[:ids])
     redirect_to employees_path, alert: 'No employees selected' if @collection.empty?
   end
 
-  # POST /employees/batch_update
-  def batch_update
+  # POST /employees/collection_update
+  def collection_update
     @collection = Employee::Collection.find(params[:ids])
     if @collection.update params[:collection]
       redirect_to employees_path, notice: 'Collection is updated'
     else
-      render 'batch_edit'
+      render 'collection_edit'
     end
   end  
 end
@@ -104,7 +104,7 @@ model types.
 
 ## Creating your views
 The
-[app/views/employess/batch_edit.html.slim](spec/dummy/app/views/employees/batch_edit.html.slim) view is a tricky one.
+[app/views/employess/collection_edit.html.slim](spec/dummy/app/views/employees/collection_edit.html.slim) view is a tricky one.
 Since we are working on a collection of record, and want to edit those
 attributes we just want a normal form for editing the attributes,
 treating the collection as the record itself. The problem however is
@@ -123,10 +123,10 @@ the standard [form_helpers](http://guides.rubyonrails.org/form_helpers.html)<br>
 * `optional_text_field`
 * `optional_input` ([simple_form](https://github.com/plataformatec/simple_form))
 
-The form you create typically looks like [app/views/employees/batch_edit.html.slim](spec/dummy/app/views/employees/batch_edit.html.slim):
+The form you create typically looks like [app/views/employees/collection_edit.html.slim](spec/dummy/app/views/employees/collection_edit.html.slim):
 ```slim
 h1 Edit multiple employees
-= form_for @collection, url: [:batch_update, @collection.record_class] do |f|
+= form_for @collection, url: [:collection_update, @collection.record_class] do |f|
   = f.collection_ids
   .form-inputs= f.optional_text_field :section
   .form-inputs= f.optional_boolean :admin
@@ -141,7 +141,7 @@ better understanding of how the optional fields work.
 
 ## Selecting records from the index using checkboxes (multi_select)
 The idea behind working with collections is that you end up as a `GET` request at:
-`+controller+/batch_edit?ids[]=2&ids[]=3` etc. How you achieve this
+`+controller+/collection_edit?ids[]=2&ids[]=3` etc. How you achieve this
 is totally up to yourself, but this gem provides you with a nice
 standard way of selecting records from the index page. To filter records
 to a specific subset the [ransack](https://github.com/activerecord-hackery/ransack)

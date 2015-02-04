@@ -45,17 +45,17 @@ class EmployeesController < ApplicationController
     redirect_to employees_url, notice: 'Employee was successfully destroyed.'
   end
 
-  def batch_edit
+  def collection_edit
     @collection = Employee::Collection.find(params[:ids])
     redirect_to employees_path, alert: 'No employees selected' if @collection.empty?
   end
 
-  def batch_update
+  def collection_update
     @collection = Employee::Collection.find(params[:ids])
     if @collection.update params[:collection]
       redirect_to employees_path, notice: 'Collection is updated'
     else
-      render 'batch_edit'
+      render 'collection_edit'
     end
   end
 

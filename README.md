@@ -119,8 +119,13 @@ you can determine which attributes you want to manage for this
 particular collection of records. This gem also support [simple_form](https://github.com/plataformatec/simple_form)
 gem where you can replace `f.input :attribute, ...etc` with
 `f.optional_input :attribute, ...etc`. Our current example works with
-the standard [form_helpers](http://guides.rubyonrails.org/form_helpers.html)
+the standard [form_helpers](http://guides.rubyonrails.org/form_helpers.html)<br>
+### currently supported helpers:
+* `optional_boolean`
+* `optional_text_field`
+* `optional_input` ([simple_form](https://github.com/plataformatec/simple_form))
 
+The form you create typically looks like:
 ```slim
 h1 Edit multiple employees
 = form_for @collection, url: [:process_batch, @collection.record_class] do |f|
@@ -132,6 +137,10 @@ h1 Edit multiple employees
 .page-actions
   = link_to 'Back', employees_path
 ```
+
+That is the view part. Be sure to read the optionals section for a
+better understanding of how the optional fields work.
+
 ## Selecting records from the index using checkboxes (multi_select)
 The idea behind working with collections is that you end up as a `GET` request at:
 `+controller+/batch_actions?ids[]=2&ids[]=3` etc. How you achieve this
@@ -171,6 +180,24 @@ gem 'font-awesome-rails'
 ```
 Of course you are welcome to create your own awesome styling and send it
 to me so I can add it as a theme :smile:.
+
+## Optionals
+Optionals is the name for the feature in this gem that activates
+collection attributes to be sumitted in the form or not. Since for a
+mixed collection on an attribute you might not want to edit, but another
+attribute you do want to edit you add the optionals functionality to
+your manifests. This is similar to the `multi_select` feature:
+```javascript
+//= require record_collection/optionals
+```
+And for the styling provided by this gem ([app/assets/stylesheets/application.css](spec/dummy/app/assets/stylesheets/application.css.sass)):
+```css
+/*
+ *= require record_collection/optionals
+ */
+```
+
+**TODO: more explanation about optionals**
 
 ## Special thanks
 

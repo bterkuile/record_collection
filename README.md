@@ -160,6 +160,8 @@ table.with-selection
   tbody
     - @employees.each do |employee|
       tr data-record=employee.attributes.to_json
+        td= employee.name
+        td= employee.section
 ```
 Note that each row needs a json version of the record at least
 containing its id.<br>

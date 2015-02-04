@@ -147,8 +147,10 @@ standard way of selecting records from the index page. To filter records
 to a specific subset the [ransack](https://github.com/activerecord-hackery/ransack)
 gem also provides a nice way to add filtering to the index page. To add
 checkbox selecting to your page this gem assumes the following
-structure using the [Slim lang](http://slim-lang.com/):
+structure using the [Slim lang](http://slim-lang.com/)
+[app/views/employees/index.html.slim](spec/dummy/app/views/employees/index.html.slim)
 ```slim
+h1 Listing Employees
 table.with-selection
   thead
     tr

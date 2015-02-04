@@ -53,14 +53,14 @@ class MultiSelect
   selected_records: -> @table.find("td.selection .checked").map( -> $(this).parents('tr').data('record') )
   selected_ids: -> @selected_records().map( -> this.id ).toArray()
 root = @
-root.multi_select = new MultiSelect()
+root.MultiSelect = new MultiSelect()
 $.fn.multi_select = ->
   if @.hasClass('with-selection') or @.prop('tagName') is 'TABLE'
     select = new MultiSelect()
-    root.multi_select = select
+    root.MultiSelect = select
     select.setup @
   else
     @.find('table.with-selection').each (i, el)->
       select = new MultiSelect()
-      root.multi_select = select
+      root.MultiSelect = select
       select.setup $(el)

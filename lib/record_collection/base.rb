@@ -48,7 +48,15 @@ module RecordCollection
     end
 
     def save
-      valid? && perform!
+      valid? && update_collection_attributes!
+    end
+
+    def update_collection_attributes!
+      each { |r| r.update changed_attributes }
+    end
+
+    def changed_attributes
+      @changed_attributes ||= attributes.reject{|attr, val| val.nil? }
     end
 
     def persisted?
@@ -73,7 +81,7 @@ module RecordCollection
     # submitted form as collection values, not the current uniform attribute.
     def uniform_collection_attribute(attr, options = {})
       attribute_spec = self.class.attributes[attr]
-      raise "Attribute #{attr} not defined on collectionn" unless attribute_spec
+      raise "Attribute #{attr} not defined on collection" unless attribute_spec
       if attribute_spec[:type] == Boolean
         # For boolean attributes presence is the true or false difference
         # not the value itself
@@ -86,11 +94,5 @@ module RecordCollection
       results.first
     end
 
-
-    private
-
-    def perform!
-      raise 'implement in subclass'
-    end
   end
 end

@@ -120,6 +120,17 @@ gem where you can replace `f.input :attribute, ...etc` with
 `f.optional_input :attribute, ...etc`. Our current example works with
 the standard [form_helpers](http://guides.rubyonrails.org/form_helpers.html)
 
+```slim
+h1 Edit multiple employees
+= form_for @collection, url: [:process_batch, @collection.record_class] do |f|
+  = f.collection_ids
+  .form-inputs= f.optional_text_field :section
+  .form-inputs= f.optional_boolean :admin
+  .form-inputs= f.optional_boolean :vegan
+  .form-actions= f.submit
+.page-actions
+  = link_to 'Back', employees_path
+```
 ## Selecting records from the index using checkboxes (multi_select)
 The idea behind working with collections is that you end up as a `GET` request at:
 `+controller+/batch_actions?ids[]=2&ids[]=3` etc. How you achieve this

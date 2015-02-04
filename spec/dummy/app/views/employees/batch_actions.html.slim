@@ -1,8 +1,11 @@
 h1 Edit multiple employees
 = form_for @collection, url: [:process_batch, @collection.record_class] do |f|
-  .form-inputs
-    = f.label :section
-    = f.text_field :section
+  = render 'form_errors', target: @collection
+  .form-inputs= f.optional_text_field :section
+  .form-inputs= f.optional_boolean :admin
+  .form-inputs= f.optional_boolean :vegan
+  /.form-inputs= f.check_box :admin
+  /.form-inputs= f.check_box :vegan
   .form-actions= f.submit
 .page-actions
   = link_to 'Back', employees_path

@@ -11,7 +11,7 @@ module ActionDispatch::Routing
       batch_blk = Proc.new do
         collection do
           get :batch_actions
-          post :process_batch
+          match :process_batch, via: [:post, :patch, :put]
         end
         blk.call if blk
       end

@@ -1,0 +1,48 @@
+@import font-awesome
+$alert-color: #f04124
+$checked-color: #43AC6A
+$unchecked-color: #999
+.optional-input-activator-container
+  display: inline-block
+  .optional-input-activator-toggle
+    margin-right: 7px
+  &.active
+    .optional-input-activator-toggle
+      color: #3636BD
+      @extend .fa, .fa-2x, .fa-toggle-on
+    &.error
+      color: $alert-color
+      .optional-input-activator-toggle
+        color: $alert-color
+  &.inactive
+    color: #999
+    .optional-input-activator-toggle
+      @extend .fa, .fa-2x, .fa-toggle-off
+.optional-attribute-container
+  .optional-boolean-label
+    display: inline-block
+    margin-left: 8px
+    margin-right: 8px
+  &.inactive
+    display: none
+  &.optional-boolean
+    &.active
+      .optional-boolean-activator-toggle
+        color: #3636BD
+        @extend .fa, .fa-2x, .fa-toggle-on
+      .optional-boolean-toggle
+        &.active
+          color: $checked-color
+          @extend .fa, .fa-2x, .fa-check-square-o
+        &.inactive
+          color: $unchecked-color
+          @extend .fa, .fa-2x, .fa-square-o
+    &.inactive
+      display: block
+      .optional-boolean-activator-toggle
+        color: $unchecked-color
+        @extend .fa, .fa-2x, .fa-toggle-off
+      .optional-boolean-label
+        color: $unchecked-color
+      .optional-boolean-toggle
+        display: none

@@ -198,8 +198,23 @@ And for the styling provided by this gem ([app/assets/stylesheets/application.cs
  */
 ```
 
-**TODO: more explanation about optionals**
+**TODO: more and better explanation about optionals**
 
+## I18n translations
+To manipulate the name of a collection and the standard `f.submit` form
+label text add the following translation file
+[config/locales/record_collection.en.yml](spec/dummy/config/locales/record_collection.en.yml)
+```yml
+en:
+  activerecord:
+    collections:
+      employee: Group
+  helpers:
+    submit:
+      collection:
+        create: "Update %{model}"
+```
+    
 ## Special thanks
 
 Special thanks for this project goes to:<br>

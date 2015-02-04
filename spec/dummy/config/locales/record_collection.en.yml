@@ -1,0 +1,11 @@
+en:
+  activerecord:
+    collections:
+      employee: Group
+    attributes:
+      employee:
+        section: Department
+  helpers:
+    submit:
+      collection:
+        create: "Update %{model}"

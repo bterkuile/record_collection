@@ -1,4 +1,5 @@
 # RecordCollection
+[<img src="https://secure.travis-ci.org/bterkuile/record_collection.png?branch=master" alt="Build Status" />](http://travis-ci.org/bterkuile/record_collection)
 
 record\_collection is a gem that adds functionality to rails to work
 with collections. This consists of a few components:

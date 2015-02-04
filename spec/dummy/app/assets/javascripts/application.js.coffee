@@ -1,8 +1,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require js-routes
-#= require record_collection/multi_select
-#= require record_collection/optionals
+#= require record_collection/all
 #= require_tree .
 #= require_self
 $ ->

@@ -167,11 +167,13 @@ Implement the multiselect dependencies in your manifest files, typically
 being `app/assets/javascripts/application.js`:
 ```javascript
 //= require record_collection/multi_select
+// Or require record_collection/all for all components
 ```
 And for the styling provided by this gem ([app/assets/stylesheets/application.css](spec/dummy/app/assets/stylesheets/application.css.sass)):
 ```css
 /*
  *= require record_collection/multi_select
+ * Or require record_collection/all for all components
  */
 ```
 The styling uses the [font-awesome-rails](http://fortawesome.github.io/Font-Awesome/) gem, so this gem should be
@@ -190,11 +192,13 @@ attribute you do want to edit you add the optionals functionality to
 your manifests. This is similar to the `multi_select` feature:
 ```javascript
 //= require record_collection/optionals
+// Or require record_collection/all for all components
 ```
 And for the styling provided by this gem ([app/assets/stylesheets/application.css](spec/dummy/app/assets/stylesheets/application.css.sass)):
 ```css
 /*
  *= require record_collection/optionals
+ * Or require record_collection/all for all components
  */
 ```
 

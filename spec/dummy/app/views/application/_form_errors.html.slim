@@ -1,8 +1,8 @@
 - if target.errors.any?
-  #error_explanation
-    h2
+  #error_explanation.alert-box.alert.radius
+    h3
       span= pluralize(target.errors.count, "error")
-      span prohibited this employee from being saved:
+      span &nbsp;prohibited this employee from being saved:
     ul
       - target.errors.full_messages.each do |message|
         li= message

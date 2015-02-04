@@ -7,4 +7,12 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   body
-    = yield
+    .row
+      .small-12.columns
+        - flash.each do |name, msg|
+          - if msg.is_a?(String)
+            .alert-box.round class=(name.to_s == 'notice' ? 'success' : 'alert') data-alert=true
+              = msg
+              a.close href="#" &times;
+    .row
+      .small-12.columns= yield

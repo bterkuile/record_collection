@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rspec", ">= 3.1.0"
   spec.add_development_dependency "rspec-rails", ">= 3.1.0"
   spec.add_development_dependency "pry", ">= 0.1"
   spec.add_development_dependency "rails", ">= 4.2.0"
@@ -30,6 +31,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "font-awesome-rails"
   spec.add_development_dependency "jquery-rails"
   spec.add_development_dependency "js-routes"
+  spec.add_development_dependency "capybara"
+  spec.add_development_dependency "poltergeist"
+  spec.add_development_dependency "launchy"
+  spec.add_development_dependency "database_cleaner"
 
 
   spec.add_runtime_dependency 'active_attr', '>= 0.8.5'

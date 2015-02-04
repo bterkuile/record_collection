@@ -2,7 +2,7 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
-Bundler.require(*Rails.groups)
+Bundler.require(*Rails.groups(development: ['development', 'test']))
 require "record_collection"
 
 module Dummy

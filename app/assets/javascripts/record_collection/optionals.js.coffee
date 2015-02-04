@@ -92,7 +92,10 @@ class Optionals
 
 root = @
 root.Optionals = new Optionals()
-$.fn.optionals = ->
-  optionals = new Optionals()
-  optionals.setup(@)
-  root.Optionals = optionals
+$.fn.optionals = (action_or_options = {})->
+  if typeof action_or_options is 'string'
+    #nothing
+  else
+    optionals = new Optionals(action_or_options)
+    optionals.setup(@)
+    root.Optionals = optionals

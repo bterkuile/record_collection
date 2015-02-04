@@ -6,12 +6,16 @@ table.with-selection
     tr
       th Name
       th Section
+      th Admin?
+      th Vegan?
       th colspan="3"
   tbody
     - @employees.each do |employee|
       tr data-record=employee.attributes.to_json
         td= employee.name
         td= employee.section
+        td.admin= employee.admin ? 'yes' : 'no'
+        td.vegan= employee.vegan ? 'yes' : 'no'
         td= link_to 'Show', employee
         td= link_to 'Edit', edit_employee_path(employee)
         td= link_to 'Destroy', employee, method: :delete, data: {confirm: 'Are you sure?' }

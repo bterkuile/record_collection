@@ -45,19 +45,17 @@ class EmployeesController < ApplicationController
     redirect_to employees_url, notice: 'Employee was successfully destroyed.'
   end
 
-  def batch_actions
-    @employees = Employee.find(Array.wrap(params[:ids]))
-    @collection = Employee::Collection.new(@employees)
+  def batch_edit
+    @collection = Employee::Collection.find(params[:ids])
     redirect_to employees_path, alert: 'No employees selected' if @collection.empty?
   end
 
-  def process_batch
-    @employees = Employee.find(Array.wrap(params[:ids]))
-    @collection = Employee::Collection.new(@employees, params[:collection])
-    if @collection.save
+  def batch_update
+    @collection = Employee::Collection.find(params[:ids])
+    if @collection.update params[:collection]
       redirect_to employees_path, notice: 'Collection is updated'
     else
-      render 'batch_actions'
+      render 'batch_edit'
     end
   end
 

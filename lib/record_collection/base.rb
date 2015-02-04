@@ -4,16 +4,11 @@ module RecordCollection
     include ActiveAttr::Model
 
     attr_reader :collection
-    protected :collection
     delegate :first, :last, :size, :length, :count, :empty?, :any?, to: :collection
 
     class << self
       def model_name
         RecordCollection::Name.new(self)
-      end
-      # Find all attributes that are specified with type boolean
-      def boolean_attributes
-        attributes.select{|k,v| v[:type] == ActiveAttr::Typecasting::Boolean}.keys.map(&:to_sym)
       end
 
       def human_attribute_name(*args)
@@ -27,6 +22,11 @@ module RecordCollection
         if base_class = collection_class.name.deconstantize.safe_constantize
           collection_class.record_class = base_class
         end
+      end
+
+      def find(ids)
+        raise "Cannot call find on a collection object if there is no record_class defined" unless respond_to?(:record_class) && record_class
+        new(ids.present? ? record_class.find(ids) : [])
       end
 
     end
@@ -49,6 +49,11 @@ module RecordCollection
 
     def save
       valid? && update_collection_attributes!
+    end
+
+    def update(attributes)
+      self.attributes = attributes
+      save
     end
 
     def update_collection_attributes!

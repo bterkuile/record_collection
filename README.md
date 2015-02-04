@@ -28,12 +28,12 @@ Or install it yourself as:
 
 ## Adding routes
 Add two collection routes to the normal resources definition.
-This call behaves exactly as the normal resources :... call, 
+This call behaves exactly as the normal resources :... call,
 but adds:
 ```ruby
  collection do
-   get :batch_actions
-   post :process_batch
+   get :batch_edit
+   post :batch_update
  end
 ```
 So the route definition in `config/routes.rb` defined as:
@@ -44,8 +44,8 @@ is exactly the same as:
 ```ruby
   resources :employees, except: [:new] do
     collection do
-      get :batch_actions
-      post :process_batch
+      get :batch_edit
+      post :batch_update
     end
   end
 ```
@@ -58,7 +58,7 @@ resource class. So an employees collection should be defined like:
 class Employee < ActiveRecord::Base
   # attribute :admin, type: Boolean (defined by database)
   validates :name, presence: true
-  
+
 end
 ```
 `app/models/employee/collection.rb`:
@@ -80,22 +80,20 @@ the actions in your controller typically looking like:
 ```ruby
 class EmployeesController < ApplicationController
   # your standard actions here
-  
-  # GET /employees/batch_actions?ids[]=1&ids[]=3&...
-  def batch_actions
-    @employees = Employee.find(Array.wrap(params[:ids])) 
-    @collection = Employee::Collection.new(@employees)
-    redirect_to employees_path, alert: 'No employees selected' if @collection.empty? 
+
+  # GET /employees/batch_edit?ids[]=1&ids[]=3&...
+  def batch_edit
+    @collection = Employee::Collection.find(params[:ids])
+    redirect_to employees_path, alert: 'No employees selected' if @collection.empty?
   end
 
-  # POST /employees/process_batch
-  def process_batch
-    @employees = Employee.find(Array.wrap(params[:ids]))
-    @collection = Employee::Collection.new(@employees, params[:collection])
-    if @collection.save
+  # POST /employees/batch_update
+  def batch_update
+    @collection = Employee::Collection.find(params[:ids])
+    if @collection.update params[:collection]
       redirect_to employees_path, notice: 'Collection is updated'
     else
-      render 'batch_actions'
+      render 'batch_edit'
     end
   end  
 end
@@ -106,7 +104,7 @@ model types.
 
 ## Creating your views
 The
-[app/views/employess/batch_actions.html.slim](spec/dummy/app/views/employees/batch_actions.html.slim) view is a tricky one.
+[app/views/employess/batch_edit.html.slim](spec/dummy/app/views/employees/batch_edit.html.slim) view is a tricky one.
 Since we are working on a collection of record, and want to edit those
 attributes we just want a normal form for editing the attributes,
 treating the collection as the record itself. The problem however is
@@ -125,10 +123,10 @@ the standard [form_helpers](http://guides.rubyonrails.org/form_helpers.html)<br>
 * `optional_text_field`
 * `optional_input` ([simple_form](https://github.com/plataformatec/simple_form))
 
-The form you create typically looks like:
+The form you create typically looks like [app/views/employees/batch_edit.html.slim](spec/dummy/app/views/employees/batch_edit.html.slim):
 ```slim
 h1 Edit multiple employees
-= form_for @collection, url: [:process_batch, @collection.record_class] do |f|
+= form_for @collection, url: [:batch_update, @collection.record_class] do |f|
   = f.collection_ids
   .form-inputs= f.optional_text_field :section
   .form-inputs= f.optional_boolean :admin
@@ -143,13 +141,13 @@ better understanding of how the optional fields work.
 
 ## Selecting records from the index using checkboxes (multi_select)
 The idea behind working with collections is that you end up as a `GET` request at:
-`+controller+/batch_actions?ids[]=2&ids[]=3` etc. How you achieve this
+`+controller+/batch_edit?ids[]=2&ids[]=3` etc. How you achieve this
 is totally up to yourself, but this gem provides you with a nice
 standard way of selecting records from the index page. To filter records
-to a specific subset the [ransack](https://github.com/activerecord-hackery/ransack) 
+to a specific subset the [ransack](https://github.com/activerecord-hackery/ransack)
 gem also provides a nice way to add filtering to the index page. To add
 checkbox selecting to your page this gem assumes the following
-structure using the [Slim lang](http://slim-lang.com/): 
+structure using the [Slim lang](http://slim-lang.com/):
 ```slim
 table.with-selection
   thead

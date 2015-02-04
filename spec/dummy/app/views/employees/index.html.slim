@@ -20,6 +20,6 @@ table.with-selection
         td= link_to 'Edit', edit_employee_path(employee)
         td= link_to 'Destroy', employee, method: :delete, data: {confirm: 'Are you sure?' }
 br
-button.actions-button onclick="window.location = Routes.batch_actions_employees_path({ids: MultiSelect.selected_ids()})" Actions
+button.actions-button onclick="window.location = Routes.batch_edit_employees_path({ids: MultiSelect.selected_ids()})" Actions
 
 = link_to 'New Employee', new_employee_path

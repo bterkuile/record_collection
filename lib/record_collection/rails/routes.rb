@@ -4,14 +4,14 @@ module ActionDispatch::Routing
     # This call behaves exactly as the normal resources :... call, 
     # but adds:
     #   collection do
-    #     get :batch_actions
-    #     post :process_batch
+    #     get :batch_edit
+    #     post :batch_update
     #   end
     def batch_resources(*resources, &blk)
       batch_blk = Proc.new do
         collection do
-          get :batch_actions
-          match :process_batch, via: [:post, :patch, :put]
+          get :batch_edit
+          match :batch_update, via: [:post, :patch, :put]
         end
         blk.call if blk
       end

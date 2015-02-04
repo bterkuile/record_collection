@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Benjamin ter Kuile"]
   spec.email         = ["bterkuile@gmail.com"]
   spec.summary       = %q{Manage collections of records in Ruby on Rails}
-  spec.description   = %q{This gem is there to aid you to work on subsets or rails models. This gem helps you to create forms and controllers that act on collections of models}
-  spec.homepage      = "http://www.companytools.nl/"
+  spec.description   = %q{This gem helps you to work on subsets or rails models}
+  spec.homepage      = "https://github.com/bterkuile/record_collection"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

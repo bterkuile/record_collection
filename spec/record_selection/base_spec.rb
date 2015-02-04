@@ -12,15 +12,15 @@ RSpec.describe RecordCollection::Base do
 
   describe '#one?' do
     it 'is false without a collection' do
-      expect( subject.one? ).to be false
+      subject.one?.should be false
     end
 
     it 'is true with exactly one record' do
-      expect( described_class.new([Object.new]).one? ).to be true
+      described_class.new([Object.new]).should be_one
     end
 
     it 'is false with more than one records' do
-      expect( described_class.new([Object.new, Object.new]).one? ).to be false
+      described_class.new([Object.new, Object.new]).should_not be_one
     end
   end
 
@@ -28,24 +28,24 @@ RSpec.describe RecordCollection::Base do
     it 'returns the first and last object of the collection' do
       o1 = Object.new
       o2 = Object.new
-      expect( described_class.new([o1, o2]).first ).to be o1
-      expect( described_class.new([o1, o2]).last ).to   be o2
+      described_class.new([o1, o2]).first.should be o1
+      described_class.new([o1, o2]).last.should be o2
     end
   end
 
   describe 'form representation' do
     it 'has prefix collection for all types in forms' do
-      expect( ActiveCollectionTest.model_name.param_key ).to eq 'collection'
+      ActiveCollectionTest.model_name.param_key.should eq 'collection'
     end
   end
 
   describe '.record_class' do
     it 'Returns the base class inferred based on namespace' do
-      expect( Employee::Collection.record_class ).to eq Employee
+      Employee::Collection.record_class.should eq Employee
     end
 
     it 'returns a specified class when explicitly set on class level' do
-      expect( ActiveCollectionTest.record_class ).to eq Project
+      ActiveCollectionTest.record_class.should eq Project
     end
   end
 
@@ -54,10 +54,10 @@ RSpec.describe RecordCollection::Base do
       record = Employee.new(name: 'Ben', section: 'ABC', admin: true, vegan: false)
       collection = Employee::Collection.new([record], name: 'Harry', section: '', vegan: true)
       collection.update_collection_attributes!
-      expect( record.name ).to eq "Ben" # not a collection attribute
-      expect( record.section ).to eq "" # Blank strings are set, only nil values not
-      expect( record.admin ).to be true # not given as argument to collection
-      expect( record.vegan ).to be true # this one should be changed
+      record.name.should eq "Ben" # not a collection attribute
+      record.section.should eq "" # Blank strings are set, only nil values not
+      record.admin.should be true # not given as argument to collection
+      record.vegan.should be true # this one should be changed
     end
   end
 

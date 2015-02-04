@@ -126,7 +126,7 @@ the standard [form_helpers](http://guides.rubyonrails.org/form_helpers.html)<br>
 The form you create typically looks like [app/views/employees/collection_edit.html.slim](spec/dummy/app/views/employees/collection_edit.html.slim):
 ```slim
 h1 Edit multiple employees
-= form_for @collection, url: [:collection_update, @collection.record_class] do |f|
+= form_for @collection, url: [:collection_update, @collection] do |f|
   = f.collection_ids
   .form-inputs= f.optional_text_field :section
   .form-inputs= f.optional_boolean :admin
@@ -148,6 +148,7 @@ to a specific subset the [ransack](https://github.com/activerecord-hackery/ransa
 gem also provides a nice way to add filtering to the index page. To add
 checkbox selecting to your page this gem assumes the following
 structure using the [Slim lang](http://slim-lang.com/)
+
 [app/views/employees/index.html.slim](spec/dummy/app/views/employees/index.html.slim)
 ```slim
 h1 Listing Employees

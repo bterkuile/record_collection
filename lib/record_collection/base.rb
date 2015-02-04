@@ -65,15 +65,9 @@ module RecordCollection
     end
 
     def persisted?
-      # Behave like an update in forms
-      true
-    end
-
-    def new_record?
-      # Behave like an update in forms
+      # Behave like an update in forms, this triggers plural routes
       false
     end
-
 
     # This method returns nil when the values of `attr` in the collection
     # are mixed. Otherwise the value itself. For boolean attributes the

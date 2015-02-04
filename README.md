@@ -65,7 +65,7 @@ end
 ```ruby
 class Employee::Collection < RecordCollection::Base
   attribute :name
-  validates :section, format: {with: /\A\w{3}\Z/, if: 'section.present?' }
+  validates :section, format: { with: /\A\w{3}\Z/ }
   attribute :admin, type: Boolean
   attribute :vegan, type: Boolean
 end

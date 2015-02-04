@@ -24,6 +24,15 @@ module RecordCollection
         end
       end
 
+      alias_method :old_validates, :validates
+      def validates(attr, options)
+        # Collection nil attributes mean they do not play a role for the collection.
+        # So validating when the value is nil is not the default behaviour. I to be turned on explicitly
+        # by specifying allow_nil: false
+        options[:allow_nil] = true unless options.has_key?(:allow_nil)
+        old_validates attr, options
+      end
+
       def find(ids)
         raise "Cannot call find on a collection object if there is no record_class defined" unless respond_to?(:record_class) && record_class
         new(ids.present? ? record_class.find(ids) : [])

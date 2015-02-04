@@ -52,7 +52,13 @@ class EmployeesController < ApplicationController
   end
 
   def process_batch
-
+    @employees = Employee.find(Array.wrap(params[:ids]))
+    @collection = Employee::Collection.new(@employees, params[:collection])
+    if @collection.save
+      redirect_to employees_path, notice: 'Collection is updated'
+    else
+      render 'batch_actions'
+    end
   end
 
   private

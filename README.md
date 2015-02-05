@@ -174,7 +174,8 @@ That is the view part. Be sure to read the optionals section for a
 better understanding of how the optional fields work.
 
 ## Selecting records from the index using checkboxes (multi_select)
-![Screenshot](docs/screenshot-multi-select-1.png?raw=true)
+![Screenshot](docs/screenshot-multi-select-1.png)
+
 The idea behind working with collections is that you end up as a `GET` request at:
 `+controller+/collection_edit?ids[]=2&ids[]=3` etc. How you achieve this
 is totally up to yourself, but this gem provides you with a nice
@@ -222,6 +223,9 @@ Of course you are welcome to create your own awesome styling and send it
 to me so I can add it as a theme :smile:.
 
 ## Optionals
+![Screenshot](docs/screenshot-optionals-1.png)
+![Screenshot](docs/screenshot-optionals-2.png)
+
 Optionals is the name for the feature in this gem that activates
 collection attributes to be sumitted in the form or not. Since for a
 mixed collection on an attribute you might not want to edit, but another

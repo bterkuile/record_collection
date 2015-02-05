@@ -174,6 +174,7 @@ That is the view part. Be sure to read the optionals section for a
 better understanding of how the optional fields work.
 
 ## Selecting records from the index using checkboxes (multi_select)
+![Screenshot](docs/screenshot-multi-select-1.png?raw=true)
 The idea behind working with collections is that you end up as a `GET` request at:
 `+controller+/collection_edit?ids[]=2&ids[]=3` etc. How you achieve this
 is totally up to yourself, but this gem provides you with a nice

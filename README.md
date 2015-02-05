@@ -84,6 +84,11 @@ allow_nil option:
   validates :email, email: true, allow_nil: false
 ```
 
+If the update on a record by the collection results in an invalid the
+record will not be updated and the collection will not (yet) give the
+feedback. The future idea is to create a `#invalid_records` attribute
+that will contain those records
+
 ### The `.record_class` attribute
 The record collection needs to know the class of the records it is
 containing, since it need to share some of its behaviour. To do this a

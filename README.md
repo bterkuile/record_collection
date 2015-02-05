@@ -73,6 +73,35 @@ end
 See the [active_attr](https://github.com/cgriego/active_attr) gem for
 attribute definitions.
 
+### Validations
+The validations for the collection are exactly the same as your
+active_model validations. The only difference is that the allow_nil:
+true option standard true is. Since a nil value of a collection attribute
+means you do not want to change that value for the individual records.
+To make an attribute explicitly required for a collection add the
+allow_nil option:
+```ruby
+  validates :email, email: true, allow_nil: false
+```
+
+### The `.record_class` attribute
+The record collection needs to know the class of the records it is
+containing, since it need to share some of its behaviour. To do this a
+collection assumes that it is subclassed by the model, eg:
+```ruby
+class Project::Prince2::Collection < RecordCollection::Base
+end
+
+Project::Prince2.record_class #=> Project::Prince2
+```
+
+If this is not the case, you have to define the record_class manually:
+```ruby
+class MyAwesomeCollection < RecordCollection::Base
+  self.record_class = LpRecord
+end
+```
+
 ## Defining your controllers
 If you already used the specification `collection_resources :employees` in
 your [config/routes.rb](spec/dummy/config/routes.rb) file you can add

@@ -222,6 +222,18 @@ gem 'font-awesome-rails'
 Of course you are welcome to create your own awesome styling and send it
 to me so I can add it as a theme :smile:.
 
+To activate multi_select for your page put in your jQuery onload
+function:
+
+```javascript
+$(function(){
+  $(document).multi_select()
+});
+```
+
+You can also apply it to dynamically loaded html replacing document for
+the html added to your page.
+
 ## Optionals
 ![Screenshot](docs/screenshot-optionals-1.png?raw=true)
 ![Screenshot](docs/screenshot-optionals-2.png?raw=true)
@@ -242,6 +254,18 @@ And for the styling provided by this gem ([app/assets/stylesheets/application.cs
  * Or require record_collection/all for all components
  */
 ```
+
+To activate the optionals for your page put in your jQuery onload
+function:
+
+```javascript
+$(function(){
+  $(document).optionals()
+});
+```
+
+You can also apply it to dynamically loaded html replacing document for
+the html added to your page.
 
 **TODO: more and better explanation about optionals**
 

@@ -32,17 +32,9 @@ class MultiSelect
     record_td = $('<td></td>').addClass('selection').append(record_toggle)
     table.find('tbody tr').prepend record_td
 
-    @setup_selection_actions()
-
     toggle_all.click() if table.data('preselected')
 
-  # Find all buttons in the table footer and attach the action given their action data attribute
-  setup_selection_actions: ->
-    selector = this
-    @table.find('tfoot button').click ->
-      $.post Routes["actions_#{selector.get('resource')}_path"](),
-        ids: selector.selected_ids().toArray()
-        selection_action: $(this).data('action')
+    return @
 
   # use set and get as a good reactive pattern
   # implement the raw version, can become more complex int the future
@@ -64,3 +56,4 @@ $.fn.multi_select = ->
       select = new MultiSelect()
       root.MultiSelect = select
       select.setup $(el)
+  select

@@ -11,6 +11,7 @@ class ActionView::Helpers::FormBuilder
   # Return inputs for the collection ids
   def collection_ids
     @collection_ids_already_added = true
+    return "".html_safe unless object.respond_to?(:map)
     object.map{|record| @template.hidden_field_tag('ids[]', record.id, id: nil) }.join.html_safe
   end
 

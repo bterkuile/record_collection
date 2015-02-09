@@ -20,6 +20,10 @@ RSpec.configure do |config|
   config.mock_with :rspec
   config.include Dummy::Application.routes.url_helpers, type: :feature
 
+  config.before :each do
+    Employee.delete_all
+  end
+
   config.expect_with :rspec do |c|
     c.syntax = [:should, :expect]
   end

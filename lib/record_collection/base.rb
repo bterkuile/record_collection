@@ -24,6 +24,14 @@ module RecordCollection
         end
       end
 
+      def after_record_update(&blk)
+        if blk
+          @after_record_update = blk
+        else
+          @after_record_update
+        end
+      end
+
       alias_method :old_validates, :validates
       def validates(attr, options)
         # Collection nil attributes mean they do not play a role for the collection.
@@ -66,7 +74,12 @@ module RecordCollection
     end
 
     def update_collection_attributes!
-      each { |r| r.update changed_attributes }
+      after_blk = self.class.after_record_update
+      each do |record|
+        record.update changed_attributes
+        after_blk.call(record) if after_blk
+      end
+      self
     end
 
     def changed_attributes

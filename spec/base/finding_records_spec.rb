@@ -26,4 +26,11 @@ RSpec.describe Employee::Collection do
     end
   end
 
+  describe '.where' do
+    it "fills the collection with records coming from the query performed on the record_class" do
+      employee1 = Employee.create name: 'E1', section: 'ABC', admin: true, vegan: false
+      employee2 = Employee.create name: 'E2', section: 'QNP', admin: false, vegan: false
+      described_class.where(admin: false).ids.should eq [employee2.id]
+    end
+  end
 end

@@ -41,11 +41,16 @@ module RecordCollection
         old_validates attr, options
       end
 
+      #FINDERS
       def find(ids)
         raise "Cannot call find on a collection object if there is no record_class defined" unless respond_to?(:record_class) && record_class
         new(ids.present? ? record_class.find(ids) : [])
       end
 
+      # Create a new collection with the scope set to the result of the query on the record_class
+      def where(*args)
+        new record_class.where(*args)
+      end
     end
 
     def initialize(collection = [], params = {})
@@ -115,5 +120,8 @@ module RecordCollection
       results.first
     end
 
+    def ids
+      @ids ||= map(&:id)
+    end
   end
 end

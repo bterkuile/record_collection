@@ -51,6 +51,10 @@ module RecordCollection
       def where(*args)
         new record_class.where(*args)
       end
+
+      def all
+        new record_class.all
+      end
     end
 
     def initialize(collection = [], params = {})

@@ -107,6 +107,19 @@ class MyAwesomeCollection < RecordCollection::Base
 end
 ```
 
+### The `after_record_update` hook
+The collection implements a general `update(attributes)` method that will
+update all the attributes that are set in the collection on the records it contains.
+If you want to trigger a conditional for example a state machine trigger, you can do it like:
+
+```ruby
+class Project::Prince2::Collection < RecordCollection::Base
+  after_record_update do |record|
+    record.is_planned! if record.plan_date.present?
+  end
+end
+```
+
 ## Defining your controllers
 If you already used the specification `collection_resources :employees` in
 your [config/routes.rb](spec/dummy/config/routes.rb) file you can add
@@ -202,7 +215,8 @@ table.with-selection
 Note that each row needs a json version of the record at least
 containing its id.<br>
 Implement the multiselect dependencies in your manifest files, typically
-being `app/assets/javascripts/application.js`:
+being
+[app/assets/javascripts/application.js](spec/dummy/app/assets/javascriptss/application.js.coffee):
 ```javascript
 //= require record_collection/multi_select
 // Or require record_collection/all for all components
@@ -232,7 +246,44 @@ $(function(){
 ```
 
 You can also apply it to dynamically loaded html replacing document for
-the html added to your page.
+the html added to your page:
+```javascript
+$.get('/ajax-page.html', function(response){
+  $('#ajax-container').html(response);
+  $('#ajax-container').multi_select();
+});
+```
+### The selection action button
+Selecting records from the tabble is the first step. Then going to the
+edit page to edit the selection is another. At the moment there is not
+yet a standardized solution in the `record_collection` gem, but with
+your suggestions there will be one in the future. A current method can
+be:
+```slim
+table.with-selection
+  ...
+  tfoot
+    tr
+      td
+        button#selected-records-action Actions
+```
+And in your [app/assets/javascripts/application.js.coffee](spec/dummy/app/assets/javascriptss/application.js.coffee)
+```coffeescript
+$ ->
+  if selector = $(document).multi_select()
+    $('#selected-records-action').click ->
+      ids = selector.selected_ids()
+      return alert "No records selected" unless ids.length
+      window.location = "/employees/collection_edit?#{$.param(ids: ids)}"
+```
+This indicates the controll you can implement on your collectoins.
+Another way could be to use the less advicable way when the
+[js-routes](https://github.com/railsware/js-routes) gem is added to just
+have a button like:
+```html
+<button onclick="window.location = Routes.collection_edit_employees_path({ids: MultiSelect.selected_ids()})">Actions</button>
+```
+without any extra javascript.
 
 ## Optionals
 ![Screenshot](docs/screenshot-optionals-1.png?raw=true)
@@ -283,7 +334,7 @@ en:
       collection:
         create: "Update %{model}"
 ```
-    
+
 ## Special thanks
 
 Special thanks for this project goes to:<br>

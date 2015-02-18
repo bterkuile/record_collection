@@ -33,4 +33,11 @@ RSpec.describe Employee::Collection do
       described_class.where(admin: false).ids.should eq [employee2.id]
     end
   end
+
+  describe '.all' do
+    it 'finds all record and makes it part of the collection' do
+      employee = Employee.create name: 'E1', section: 'ABC', admin: true, vegan: false
+      described_class.all.collection.should eq [employee]
+    end
+  end
 end

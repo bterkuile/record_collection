@@ -1,4 +1,3 @@
-
 h1 Listing Employees
 table.with-selection
   thead
@@ -7,7 +6,7 @@ table.with-selection
       th Section
       th Admin?
       th Vegan?
-      th colspan="3"
+      th colspan=3
   tbody
     - @employees.each do |employee|
       tr data-record=employee.attributes.to_json
@@ -18,6 +17,10 @@ table.with-selection
         td= link_to 'Show', employee
         td= link_to 'Edit', edit_employee_path(employee)
         td= link_to 'Destroy', employee, method: :delete, data: {confirm: 'Are you sure?' }
+  tfoot
+    tr
+      td colspan=8
+        button#selected-records-action Actions
 br
 .page-actions
   button.actions-button.button.warning onclick="window.location = Routes.collection_edit_employees_path({ids: MultiSelect.selected_ids()})" Actions

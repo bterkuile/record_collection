@@ -1,0 +1,6 @@
+-#= page_title :new, <%= class_name %>
+
+= render 'form'
+
+.page-links
+  = link_to t('action.index.link', model: <%= class_name %>.model_name.human), <%= index_helper %>_path, class: 'to-index-button'

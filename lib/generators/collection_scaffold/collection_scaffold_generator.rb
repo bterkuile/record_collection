@@ -85,7 +85,7 @@ class CollectionScaffoldGenerator < Rails::Generators::NamedBase
   end
 
   def handler
-    :haml
+    "Slim".safe_constantize ? :slim : :haml
   end
 
   def filename_with_extensions(view, format)

@@ -1,0 +1,7 @@
+= form_for @collection, url: [:collection_update, @collection] do |f|
+  = f.collection_ids
+  / Error messages
+<% for attribute in attributes -%>
+  .form-row= f.optional_<%= attribute.field_type %> :<%= attribute.name %>
+<% end -%>
+  .form-actions= f.submit 'Save'

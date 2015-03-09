@@ -1,7 +1,7 @@
 <% module_namespacing do -%>
 class <%= class_name %> < <%= parent_class_name.classify %>
 <% attributes.each do |attribute| -%>
-  # property <%= attribute.name %>, type: <%= attribute.type %>
+  # property <%= attribute.name %>, type: :<%= attribute.type %>
 <% end -%>
 <% attributes.select(&:reference?).each do |attribute| -%>
   belongs_to :<%= attribute.name %><%= ', polymorphic: true' if attribute.polymorphic? %><%= ', required: true' if attribute.required? %>

@@ -20,8 +20,49 @@ class CollectionScaffoldGenerator < Rails::Generators::NamedBase
     template 'model.rb', File.join('app/models', class_path, "#{file_name}.rb")
   end
 
+  def create_collection_file
+    template 'collection.rb', File.join('app/models', class_path, file_name, "collection.rb")
+  end
+
+  def create_root_folder
+    empty_directory File.join("app/views", controller_file_path)
+  end
+
+  def copy_view_files
+    available_views.each do |view|
+      formats.each do |format|
+        filename = filename_with_extensions(view, format)
+        template filename, File.join("app/views", controller_file_path, filename)
+      end
+    end
+  end
+
   protected
+
+  def collection_type_addition_for(attribute)
+    case attribute.type
+    when :boolean then ", type: Boolean"
+    else ''
+    end
+  end
+
   def parent_class_name
     options[:parent] || "ActiveRecord::Base"
+  end
+
+  def available_views
+    %w(index edit show new _form collection_edit)
+  end
+
+  def formats
+    [:html]
+  end
+
+  def handler
+    :haml
+  end
+
+  def filename_with_extensions(view, format)
+    [view, format, handler].compact.join('.')
   end
 end

@@ -22,4 +22,4 @@
           = link_to content_tag(:span, '', class: 'icon'), <%= singular_table_name %>, method: :delete, class: 'table-destroy-button', data: { confirm: 'Are you sure?' }
 
 .page-links
-  = link_to t('action.new.link'), new_<%= singular_table_name %>_path, class: 'record-new-button'
+  = link_to t('action.new.link', model: <%= class_name %>.model_name.human), new_<%= singular_table_name %>_path, class: 'record-new-button'

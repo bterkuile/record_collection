@@ -345,7 +345,29 @@ rails g collection_scaffold Project name:string finished:boolean description:tex
 This will generate the routes, model, migration, collection model and
 views.
 
-<b>NOTE:</b> At the moment only haml support for views
+<b>NOTE:</b> At the moment only haml support for generated views.
+Also note that the generators make an assumption about having the
+following translations available:
+```yml
+en:
+  action:
+    create:
+      successful: Successfully created %{model}
+    update:
+      successful: Successfully updated %{model}
+    collection_update:
+      successful: Successfully updated %{model} collection
+    destroy:
+      successful: Successfully destroyed %{model}
+    new:
+      link: New
+    index:
+      link: Back
+    edit:
+      link: Edit
+    show:
+      link: Show
+```
 
 ## Special thanks
 

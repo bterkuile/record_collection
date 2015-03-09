@@ -335,6 +335,18 @@ en:
         create: "Update %{model}"
 ```
 
+## Generators
+There is a scaffold generator available for collection resources. The
+behaviour is very similar to the normal scaffold generator:
+```bash
+rails g collection_scaffold Project name:string finished:boolean description:text
+``` 
+
+This will generate the routes, model, migration, collection model and
+views.
+
+<b>NOTE:</b> At the moment only haml support for views
+
 ## Special thanks
 
 Special thanks for this project goes to:<br>

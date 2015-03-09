@@ -1,5 +1,6 @@
 class CollectionScaffoldGenerator < Rails::Generators::NamedBase
   source_root File.expand_path("../templates", __FILE__)
+  include Rails::Generators::Migration
   include Rails::Generators::ResourceHelpers
 
   check_class_collision suffix: "Controller"
@@ -37,7 +38,32 @@ class CollectionScaffoldGenerator < Rails::Generators::NamedBase
     end
   end
 
+  def create_migration_file
+    migration_template "create_table_migration.rb", "db/migrate/create_#{table_name}.rb"
+  end
+
+  class << self
+    # Implement the required interface for Rails::Generators::Migration.
+    # taken for record collection from: activerecord/lib/rails/generators/active_record/migration.rb
+    def next_migration_number(dirname)
+      next_migration_number = current_migration_number(dirname) + 1
+      ActiveRecord::Migration.next_migration_number(next_migration_number)
+    end
+  end
+
   protected
+
+  # taken from
+  # activerecord/lib/rails/generators/active_record/model/model_generator.rb
+  def attributes_with_index
+    attributes.select { |a| !a.reference? && a.has_index? }
+  end
+
+  # taken from
+  # activerecord/lib/rails/generators/active_record/model/model_generator.rb
+  def accessible_attributes
+    attributes.reject(&:reference?)
+  end
 
   def collection_type_addition_for(attribute)
     case attribute.type

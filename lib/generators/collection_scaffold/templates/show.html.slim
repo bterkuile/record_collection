@@ -1,0 +1,10 @@
+-#= page_title :show, <%= class_name %>
+<% for attribute in attributes -%>
+.display-row
+  .display-label= <%= class_name %>.human_attribute_name(:<%= attribute.name %>)
+  .display-field= @<%= singular_table_name %>.<%= attribute.name %>
+<% end -%>
+
+.page-links
+  = link_to t('action.index.link'), <%= index_helper %>_path, class: 'to-index-button'
+  = link_to t('action.edit.link'), edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), class: 'record-edit-button'

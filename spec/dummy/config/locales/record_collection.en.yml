@@ -9,3 +9,20 @@ en:
     submit:
       collection:
         create: "Update %{model}"
+  action:
+    create:
+      successful: Successfully created %{model}
+    update:
+      successful: Successfully updated %{model}
+    collection_update:
+      successful: Successfully updated %{model} collection
+    destroy:
+      successful: Successfully destroyed %{model}
+    new:
+      link: New
+    index:
+      link: Back
+    edit:
+      link: Edit
+    show:
+      link: Show

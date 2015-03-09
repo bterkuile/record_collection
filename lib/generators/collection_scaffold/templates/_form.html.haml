@@ -1,4 +1,4 @@
-= form_for @collection, url: [:collection_update, @collection] do |f|
+= form_for @<%= singular_table_name %> do |f|
   / Error messages
 <% for attribute in attributes -%>
   .form-row

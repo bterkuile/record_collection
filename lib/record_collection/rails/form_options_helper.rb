@@ -22,6 +22,10 @@ class ActionView::Helpers::FormBuilder
     add_collection_ids @template.content_tag(:div, label_tag + check_box_tag , class: classes, data: { attribute: attr })
   end
 
+  def optional_check_box(attr)
+    optional_boolean(attr)
+  end
+
   def optional_input(attr, options = {})
     classes = get_optional_classes(attr, base_class: 'optional-input')
     add_collection_ids @template.content_tag(:div, input(attr, options), class: classes, data: { attribute: attr })
@@ -30,6 +34,11 @@ class ActionView::Helpers::FormBuilder
   def optional_text_field(attr, options={})
     classes = get_optional_classes(attr, base_class: 'optional-text-field')
     add_collection_ids @template.content_tag(:div, label(attr, options[:label]) + text_field(attr, options), class: classes, data: { attribute: attr })
+  end
+
+  def optional_text_area(attr, options={})
+    classes = get_optional_classes(attr, base_class: 'optional-text-area')
+    add_collection_ids @template.content_tag(:div, label(attr, options[:label]) + text_area(attr, options), class: classes, data: { attribute: attr })
   end
 
   def get_optional_classes(attr, options = {})

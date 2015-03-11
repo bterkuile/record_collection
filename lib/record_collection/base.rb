@@ -125,7 +125,7 @@ module RecordCollection
     end
 
     def ids
-      @ids ||= map(&:id)
+      @ids ||= map{|record| record.try(:id) }.compact
     end
   end
 end

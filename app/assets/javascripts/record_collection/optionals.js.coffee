@@ -82,6 +82,13 @@ class Optionals
           #value_toggle.hide()
           container.removeClass('active').addClass('inactive')
       activator_label = $('<span></span>').addClass('optional-input-activator-label').text label_text
+      activator_label.click ->
+        if activator_container.hasClass('active')
+          # Focus on element
+          value_field.focus()
+        else
+          # Activate the optional
+          activator_toggle.click()
       activator_container.append activator_toggle
       activator_container.append activator_label
 

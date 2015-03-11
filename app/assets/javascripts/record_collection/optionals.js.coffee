@@ -62,6 +62,7 @@ class Optionals
       value_field = container.find('select,input')
       # INITIAL STATE IS DISABLED, Activation by triggering click if needed
       value_field.attr 'name', "disabled_#{value_field.attr('name')}"
+      container.addClass('inactive')
 
       label_text = container.find('label').text()
 
@@ -75,11 +76,11 @@ class Optionals
         if activator_container.hasClass('active')
           value_field.attr 'name', value_field.attr('name').replace(/^disabled_/, '')
           #value_toggle.show()
-          container.removeClass('inactive')
+          container.addClass('active').removeClass('inactive')
         else
           value_field.attr 'name', "disabled_#{value_field.attr('name')}"
           #value_toggle.hide()
-          container.addClass('inactive')
+          container.removeClass('active').addClass('inactive')
       activator_label = $('<span></span>').addClass('optional-input-activator-label').text label_text
       activator_container.append activator_toggle
       activator_container.append activator_label

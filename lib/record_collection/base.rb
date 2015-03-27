@@ -91,6 +91,11 @@ module RecordCollection
       self
     end
 
+    # Return a hash of the changed attributes of the collection:
+    #   {
+    #     name: 'Ben',
+    #     ....etc...
+    #   }
     def changed_attributes
       @changed_attributes ||= attributes.reject{|attr, val| val.nil? }
     end

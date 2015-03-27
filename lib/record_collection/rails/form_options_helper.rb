@@ -19,7 +19,7 @@ class ActionView::Helpers::FormBuilder
     classes = get_optional_classes(attr, base_class: 'optional-boolean')
     label_tag = label(attr, options[:label])
     check_box_tag = check_box(attr, options)
-    add_collection_ids @template.content_tag(:div, label_tag + check_box_tag , class: classes, data: { attribute: attr })
+    add_collection_ids @template.content_tag(:div, label_tag + check_box_tag , class: classes, data: get_data_attributes(attr))
   end
 
   def optional_check_box(attr)
@@ -28,17 +28,22 @@ class ActionView::Helpers::FormBuilder
 
   def optional_input(attr, options = {})
     classes = get_optional_classes(attr, base_class: 'optional-input')
-    add_collection_ids @template.content_tag(:div, input(attr, options), class: classes, data: { attribute: attr })
+    add_collection_ids @template.content_tag(:div, input(attr, options), class: classes, data: get_data_attributes(attr))
   end
 
   def optional_text_field(attr, options={})
     classes = get_optional_classes(attr, base_class: 'optional-text-field')
-    add_collection_ids @template.content_tag(:div, label(attr, options[:label]) + text_field(attr, options), class: classes, data: { attribute: attr })
+    add_collection_ids @template.content_tag(:div, label(attr, options[:label]) + text_field(attr, options), class: classes, data: get_data_attributes(attr))
   end
 
   def optional_text_area(attr, options={})
     classes = get_optional_classes(attr, base_class: 'optional-text-area')
-    add_collection_ids @template.content_tag(:div, label(attr, options[:label]) + text_area(attr, options), class: classes, data: { attribute: attr })
+    add_collection_ids @template.content_tag(:div, label(attr, options[:label]) + text_area(attr, options), class: classes, data: get_data_attributes(attr))
+  end
+
+  def get_data_attributes(attr, options = {})
+    one = object.respond_to?(:one?) && object.one?
+    {attribute: attr, one: one}
   end
 
   def get_optional_classes(attr, options = {})
@@ -51,6 +56,7 @@ class ActionView::Helpers::FormBuilder
     active = true unless object.public_send(attr).nil? # Activate if collection attribute is not nil
     classes = [options[:base_class] || 'optional-input', 'optional-attribute-container', attr]
     classes << (active ? 'active' : 'inactive')
+    classes << 'one' if object.respond_to?(:one?) and object.one?
     classes << 'error' if object.errors[attr].present?
     classes
   end

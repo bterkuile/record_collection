@@ -16,12 +16,13 @@ class Optionals
     check_box = container.find('input')
     initially_checked = check_box.is(':checked')
     field_name = check_box.attr('name')
+    one = container.data('one')
 
     label_text = container.find('label').text()
 
     value_field = $('<input>').attr('type', 'hidden').val(0)
     # Set name based on activated state
-    if container.hasClass('active')
+    if one or container.hasClass('active')
       value_field.attr 'name', field_name
     else
       value_field.attr 'name', "disabled_#{field_name}"
@@ -29,14 +30,17 @@ class Optionals
     # Clear the container and initialize to inactive
     container.html('')
 
-    label = $('<span></span>').addClass('optional-boolean-label').text label_text
-
     activator_toggle = $('<span></span>').addClass('optional-boolean-activator-toggle').click ->
       container.toggleClass('active').toggleClass('inactive')
       if container.hasClass('active')
         value_field.attr 'name', value_field.attr('name').replace(/^disabled_/, '')
       else
         value_field.attr 'name', "disabled_#{value_field.attr('name')}"
+
+    label = $('<span></span>').addClass('optional-boolean-label').text label_text
+    label.click ->
+      if container.hasClass('inactive')
+        activator_toggle.click()
 
     value_toggle = $('<span></span>').addClass('optional-boolean-toggle').click ->
       return if container.hasClass('inactive')
@@ -57,12 +61,14 @@ class Optionals
     container.append label
     container.append value_toggle
     container.append value_field
+    activator_toggle.hide() if one
 
   prependActivator: (container)->
       value_field = container.find('select,input')
       # INITIAL STATE IS DISABLED, Activation by triggering click if needed
       value_field.attr 'name', "disabled_#{value_field.attr('name')}"
       container.addClass('inactive')
+      one = container.data('one')
 
       label_text = container.find('label').text()
 
@@ -97,6 +103,7 @@ class Optionals
       container.find('label').remove()
 
       activator_toggle.click() if container.hasClass('active')
+      activator_toggle.hide() if one
 
 root = @
 root.Optionals = new Optionals()

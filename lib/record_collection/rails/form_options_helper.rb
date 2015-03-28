@@ -42,7 +42,8 @@ class ActionView::Helpers::FormBuilder
   end
 
   def get_data_attributes(attr, options = {})
-    one = object.respond_to?(:one?) && object.one?
+    one = true
+    one = object.one? if object.is_a? RecordCollection::Base
     {attribute: attr, one: one}
   end
 
@@ -56,7 +57,12 @@ class ActionView::Helpers::FormBuilder
     active = true unless object.public_send(attr).nil? # Activate if collection attribute is not nil
     classes = [options[:base_class] || 'optional-input', 'optional-attribute-container', attr]
     classes << (active ? 'active' : 'inactive')
-    classes << 'one' if object.respond_to?(:one?) and object.one?
+    if object.is_a? RecordCollection::Base
+      classes << 'one' if object.one?
+    else
+      # Assume normal record, this always behaves like one
+      classes << 'one'
+    end
     classes << 'error' if object.errors[attr].present?
     classes
   end

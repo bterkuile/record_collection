@@ -102,7 +102,7 @@ class Optionals
 
       container.find('label').remove()
 
-      activator_toggle.click() if container.hasClass('active')
+      activator_toggle.click() if container.hasClass('active') or one
       activator_toggle.hide() if one
 
 root = @

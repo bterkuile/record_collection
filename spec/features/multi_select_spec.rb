@@ -20,4 +20,5 @@ RSpec.feature "Multi select", type: :feature do
     Employee.pluck(:admin).should be_none
 
   end
+
 end

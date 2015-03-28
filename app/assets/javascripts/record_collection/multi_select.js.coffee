@@ -15,7 +15,6 @@ class MultiSelect
     @options = options
     @on 'changed', options.changed if options.changed
 
-    @set 'resource', table.data('resource')
     # Add an extra th to all header rows
     table.find('thead tr').each -> $(this).prepend("<th></th>")
 

@@ -32,10 +32,13 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "jquery-rails"
   spec.add_development_dependency "js-routes"
   spec.add_development_dependency "capybara"
+  spec.add_development_dependency "capybara-screenshot"
   spec.add_development_dependency "poltergeist"
   spec.add_development_dependency "launchy"
   spec.add_development_dependency "database_cleaner"
   spec.add_development_dependency "spring"
+  spec.add_development_dependency "spring-commands-rspec"
+  spec.add_development_dependency "quiet_assets"
 
 
   spec.add_runtime_dependency 'active_attr', '~> 0.8'

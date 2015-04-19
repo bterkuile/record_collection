@@ -37,6 +37,12 @@ $unchecked-color: #999
         &.inactive
           color: $unchecked-color
           @extend .fa, .fa-2x, .fa-square-o
+      &.disabled
+        .optional-boolean-toggle
+          &.active
+            color: $unchecked-color
+          &.inactive
+            color: $unchecked-color
     &.inactive
       display: block
       .optional-boolean-activator-toggle

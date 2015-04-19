@@ -105,6 +105,10 @@ module RecordCollection
       false
     end
 
+    def to_ary(*)
+      self
+    end
+
     # This method returns nil when the values of `attr` in the collection
     # are mixed. Otherwise the value itself. For boolean attributes the
     # check is wether the values are truthy or falsy. If the

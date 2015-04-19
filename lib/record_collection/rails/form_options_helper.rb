@@ -15,15 +15,15 @@ class ActionView::Helpers::FormBuilder
     object.map{|record| @template.hidden_field_tag('ids[]', record.id, id: nil) }.join.html_safe
   end
 
-  def optional_boolean(attr)
+  def optional_boolean(attr, options = {})
     classes = get_optional_classes(attr, base_class: 'optional-boolean')
     label_tag = label(attr, options[:label])
     check_box_tag = check_box(attr, options)
     add_collection_ids @template.content_tag(:div, label_tag + check_box_tag , class: classes, data: get_data_attributes(attr))
   end
 
-  def optional_check_box(attr)
-    optional_boolean(attr)
+  def optional_check_box(attr, options = {})
+    optional_boolean(attr, options)
   end
 
   def optional_input(attr, options = {})

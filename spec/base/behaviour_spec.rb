@@ -81,5 +81,10 @@ RSpec.describe Employee::Collection do
       end
     end
   end
+
+  describe "array like behaviour" do
+    collection = described_class.new([1])
+    Array.wrap( collection ).should == collection
+  end
 end
 

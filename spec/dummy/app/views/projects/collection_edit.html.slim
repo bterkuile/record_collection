@@ -1,0 +1,9 @@
+h1 Edit multiple employees
+= form_for @collection, url: [:collection_update, @collection] do |f|
+  = render 'form_errors', target: @collection
+  .form-inputs= f.optional_boolean :finished, disabled: true
+  .form-actions= f.submit
+.page-actions
+  = link_to 'Back', employees_path
+
+

@@ -44,6 +44,7 @@ class Optionals
 
     value_toggle = $('<span></span>').addClass('optional-boolean-toggle').click ->
       return if container.hasClass('inactive')
+      return if container.data('disabled')
       if $(@).hasClass('active')
         value_field.val(0)
         $(@).removeClass('active').addClass('inactive')

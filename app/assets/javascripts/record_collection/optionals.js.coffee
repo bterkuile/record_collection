@@ -65,7 +65,7 @@ class Optionals
     activator_toggle.hide() if one
 
   prependActivator: (container)->
-      value_field = container.find('select,input')
+      value_field = container.find('select,input,textarea')
       # INITIAL STATE IS DISABLED, Activation by triggering click if needed
       value_field.attr 'name', "disabled_#{value_field.attr('name')}"
       container.addClass('inactive')

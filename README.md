@@ -1,5 +1,6 @@
 # RecordCollection
 [<img src="https://secure.travis-ci.org/bterkuile/record_collection.png?branch=master" alt="Build Status" />](http://travis-ci.org/bterkuile/record_collection)
+[![Code Climate](https://codeclimate.com/github/bterkuile/record_collection/badges/gpa.svg)](https://codeclimate.com/github/bterkuile/record_collection)
 
 record\_collection is a gem that adds functionality to rails to work
 with collections. This consists of a few components:
@@ -375,8 +376,6 @@ Special thanks for this project goes to:<br>
 <a href="http://companytools.nl/" target="_blank"><img src="http://companytools.nl/assets/logo2-f5f9a19c745e753a4d52b5c0a1a7c6d7.png" alt="Companytools"></a>
 &nbsp;&nbsp;
 <a href="http://fourstack.nl" target="_blank"><img src="http://fourstack.nl/logo1.png" alt="FourStack"></a>
-&nbsp;&nbsp;
-<a href="http://www.kpn.com" target="_blank"><img src="http://www.kpn.com/ss/Satellite/yavUnLl8hN7yMh6Gh2IPWqYD60HbUkXsNK4iD8PcUpR0bnBXyZZtwQUuCgSUG72CJE/MungoBlobs/kpn_logo.png"></a>
 
 ## Contributing
 

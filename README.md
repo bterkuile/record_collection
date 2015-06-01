@@ -373,7 +373,7 @@ en:
 ## Special thanks
 
 Special thanks for this project goes to:<br>
-<a href="http://companytools.nl/" target="_blank"><img src="http://companytools.nl/assets/logo2-f5f9a19c745e753a4d52b5c0a1a7c6d7.png" alt="Companytools"></a>
+<a href="http://companytools.nl/" target="_blank"><img src="http://companytools.nl/assets/logo2-63318dd42aef154bd43548222b54be562f4c1059a4e7880892000224126d59bb.png" alt="Companytools"></a>
 &nbsp;&nbsp;
 <a href="http://fourstack.nl" target="_blank"><img src="http://fourstack.nl/logo1.png" alt="FourStack"></a>
 

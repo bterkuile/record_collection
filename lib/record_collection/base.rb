@@ -17,6 +17,7 @@ module RecordCollection
       end
 
       def inherited(collection_class)
+        super
         # Try to infer the baseclass from the collection inheritance and set it if possible
         collection_class.send :cattr_accessor, :record_class
         if base_class = collection_class.name.deconstantize.safe_constantize

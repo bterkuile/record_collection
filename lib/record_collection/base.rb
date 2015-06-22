@@ -16,13 +16,15 @@ module RecordCollection
         record_class.human_attribute_name(*args)
       end
 
-      def inherited(collection_class)
-        super
-        # Try to infer the baseclass from the collection inheritance and set it if possible
-        collection_class.send :cattr_accessor, :record_class
-        if base_class = collection_class.name.deconstantize.safe_constantize
-          collection_class.record_class = base_class
-        end
+      # GETTER
+      def record_class
+        return @record_class if defined?(@record_class)
+        @record_class = name.deconstantize.safe_constantize
+      end
+
+      # SETTER
+      def record_class=(klass)
+        @record_class = klass
       end
 
       def after_record_update(&blk)

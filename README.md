@@ -2,6 +2,7 @@
 [![Gem Version](https://badge.fury.io/rb/record_collection.svg)](http://badge.fury.io/rb/record_collection)
 [![Build Status](https://travis-ci.org/bterkuile/record_collection.svg?branch=master)](https://travis-ci.org/bterkuile/record_collection)
 [![Code Climate](https://codeclimate.com/github/bterkuile/record_collection/badges/gpa.svg)](https://codeclimate.com/github/bterkuile/record_collection)
+[![Test Coverage](https://codeclimate.com/github/bterkuile/record_collection/badges/coverage.svg)](https://codeclimate.com/github/bterkuile/record_collection/coverage)
 
 record\_collection is a gem that adds functionality to rails to work
 with collections. This consists of a few components:

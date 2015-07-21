@@ -2,6 +2,7 @@ h1 Edit multiple projects
 = form_for @collection, url: [:collection_update, @collection] do |f|
   = render 'form_errors', target: @collection
   .form-inputs= f.optional_boolean :finished, disabled: true
+  .form-inputs= f.optional_text_area :description
   .form-actions= f.submit
 .page-actions
   = link_to 'Back', employees_path

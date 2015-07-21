@@ -1,7 +1,7 @@
 en:
   activerecord:
     collections:
-      employee: Group
+      employee: Employees collection
     attributes:
       employee:
         section: Department

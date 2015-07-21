@@ -1,5 +1,6 @@
 # RecordCollection
-[<img src="https://secure.travis-ci.org/bterkuile/record_collection.png?branch=master" alt="Build Status" />](http://travis-ci.org/bterkuile/record_collection)
+[![Gem Version](https://badge.fury.io/rb/record_collection.svg)](http://badge.fury.io/rb/record_collection)
+[![Build Status](https://travis-ci.org/bterkuile/record_collection.svg?branch=master)](https://travis-ci.org/bterkuile/record_collection)
 [![Code Climate](https://codeclimate.com/github/bterkuile/record_collection/badges/gpa.svg)](https://codeclimate.com/github/bterkuile/record_collection)
 
 record\_collection is a gem that adds functionality to rails to work

@@ -87,7 +87,7 @@ attribute definitions.
 ### Validations
 The validations for the collection are exactly the same as your
 active_model validations. The only difference is that the allow_nil:
-true option standard true is. Since a nil value of a collection attribute
+true option is standard set to true. Since a nil value of a collection attribute
 means you do not want to change that value for the individual records.
 To make an attribute explicitly required for a collection add the
 allow_nil option:
@@ -108,7 +108,7 @@ collection assumes that it is subclassed by the model, eg:
 class Project::Prince2::Collection < RecordCollection::Base
 end
 
-Project::Prince2.record_class #=> Project::Prince2
+Project::Prince2::Collection.record_class #=> Project::Prince2
 ```
 
 If this is not the case, you have to define the record_class manually:
@@ -177,8 +177,9 @@ gem where you can replace `f.input :attribute, ...etc` with
 `f.optional_input :attribute, ...etc`. Our current example works with
 the standard [form_helpers](http://guides.rubyonrails.org/form_helpers.html)<br>
 ### currently supported helpers:
-* `optional_boolean`
+* `optional_boolean` with alias `optional_check_box`
 * `optional_text_field`
+* `optional_text_area`
 * `optional_input` ([simple_form](https://github.com/plataformatec/simple_form))
 
 The form you create typically looks like [app/views/employees/collection_edit.html.slim](spec/dummy/app/views/employees/collection_edit.html.slim):

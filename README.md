@@ -13,6 +13,14 @@ with collections. This consists of a few components:
 * the optionals helpers for managing attributes on the collection of
   records you may or may not want to edit in the collection form
 
+This gem is created for a project where acting on collections of records
+was a key feature of the application. If you require really heavy client
+side logic on collections, a client side framework might be the way to go
+treating all records CRUD individually. This gem add two 'resourceful'
+actions to a resource controller to act on collections (a subset) of
+your records. Advanced failure handling is missing. Normal active
+model validation is implemented.
+
 ## Installation
 
 Add this line to your application's Gemfile:

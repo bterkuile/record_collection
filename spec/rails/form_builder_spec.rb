@@ -14,7 +14,9 @@ describe ActionView::Helpers::FormBuilder do
 
   describe '.collection_ids' do
     it 'returns the collection ids as hidden fields' do
-      subject.collection_ids.should eq %{<input type="hidden" name="ids[]" value="#{employee.id}" />}
+      subject.collection_ids.should match /^<input/
+      subject.collection_ids.should match /name="ids\[\]"/
+      subject.collection_ids.should match /value="#{employee.id}"/
     end
 
     it "does not raise when the object is not a collection object" do
@@ -52,7 +54,7 @@ describe ActionView::Helpers::FormBuilder do
         subject.get_optional_classes(:section).should include'inactive'
       end
     end
-    
+
     describe 'one' do
       it "includes one if only one record is present" do
         subject.get_optional_classes(:section).should include'one'

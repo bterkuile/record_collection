@@ -139,5 +139,10 @@ module RecordCollection
     def ids
       @ids ||= map{|record| record.try(:id) }.compact
     end
+
+    # delegate model name to class
+    def model_name
+      self.class.model_name
+    end
   end
 end

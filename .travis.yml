@@ -3,7 +3,6 @@ rvm:
   - 2.1.6
   - 2.2.2
 env:
-  - RAILS_VERSION=3.2.22
   - RAILS_VERSION=4.1.12
   - RAILS_VERSION=4.2.3
 addons:

@@ -25,6 +25,18 @@ describe ActionView::Helpers::FormBuilder do
     end
   end
 
+  describe '#optional_input simple_form support' do
+    it "generates proper output" do
+      expect( subject ).to receive(:input).and_return "<simple-form-content>Simple Form Content</simple-form-content>".html_safe
+      html = subject.optional_input(:section)
+      doc = Nokogiri::HTML(html)
+      doc.css("[name='ids[]'][value='#{employee.id}']").should be_present # add ids if not yet set
+
+      optional_div = doc.css("div.optional-input.optional-attribute-container.section.active.one[data-attribute='section'][data-one=true]").first
+      optional_div.text.should eq 'Simple Form Content'
+    end
+  end
+
   describe '#get_optional_classes' do
 
     describe 'active/inactive' do

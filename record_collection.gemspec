@@ -42,7 +42,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "quiet_assets"
 
 
-  spec.add_runtime_dependency 'active_attr', '~> 0.8'
-  spec.add_runtime_dependency 'activemodel', '~> 4.1'
+  spec.add_runtime_dependency 'active_attr', '>= 0.8'
+  spec.add_runtime_dependency 'activemodel', '>= 4.1'
   spec.add_runtime_dependency "railties", ">= 3.1"
 end

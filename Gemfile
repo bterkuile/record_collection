@@ -11,6 +11,9 @@ rails = case rails_version
   else "~> #{rails_version}"
 end
 gem "rails", rails
+if rails_version == 'master'
+  gem 'arel', github: 'rails/arel'
+end
 
 group :test do
   gem "codeclimate-test-reporter", require: nil

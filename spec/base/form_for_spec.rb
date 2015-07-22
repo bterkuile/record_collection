@@ -33,7 +33,15 @@ describe 'form_for', type: :helper do
       rails_form_method.should_not be_present
     end
 
-    context "with custom as: my_collection attribute" do
+    context "with format option" do
+      let(:form_html){ helper.form_for(subject, format: :json){|f| f.text_field :section } }
+      it "generates an action including format" do
+        form['method'].should eq 'post'
+        form['action'].should eq "/employees/collection_update.json"
+      end
+    end
+
+    context "with custom as: my_collection option" do
       let(:form_html){ helper.form_for(subject, as: 'my_collection'){|f| f.text_field :section } }
       it 'generates a proper form for a collection record with as param set' do
         form['method'].should eq 'post'

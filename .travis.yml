@@ -5,7 +5,7 @@ rvm:
 env:
   - RAILS_VERSION=4.1.12
   - RAILS_VERSION=4.2.3
-  - RAILS_VERSION=master
+  #- RAILS_VERSION=master
 addons:
   code_climate:
     repo_token: 22819b10ef9110a7fef884ab105239fc16fd0562ac79ae54c2204b5e07343919

@@ -2,6 +2,7 @@ module RecordCollection
   class Base
     include Enumerable
     include ActiveAttr::Model
+    STRING_IDS_SEPARATOR = '~'
 
     attr_reader :collection
     delegate :first, :last, :size, :length, :count, :empty?, :any?, to: :collection
@@ -47,7 +48,12 @@ module RecordCollection
       #FINDERS
       def find(ids)
         raise "Cannot call find on a collection object if there is no record_class defined" unless respond_to?(:record_class) && record_class
-        new(ids.present? ? record_class.find(ids) : [])
+        collection = case ids.presence
+          when String then record_class.find(ids.split(STRING_IDS_SEPARATOR))
+          when nil then []
+          else record_class.find(Array.wrap(ids))
+        end
+        self.new(collection)
       end
 
       # Create a new collection with the scope set to the result of the query on the record_class

@@ -24,6 +24,17 @@ RSpec.describe Employee::Collection do
         described_class.find([employee1.id, employee2.id]).collection.should match_array [employee1, employee2]
       end
     end
+
+    it "finds single id as string as collection" do
+      employee = Employee.create name: 'E1', section: 'ABC', admin: true, vegan: false
+      described_class.find(employee.id).collection.should eq [employee]
+    end
+
+    it 'finds multiple records from a tilde separated string' do
+      employee1 = Employee.create name: 'E1', section: 'ABC', admin: true, vegan: false
+      employee2 = Employee.create name: 'E2', section: 'QNP', admin: false, vegan: false
+      described_class.find("#{employee1.id}~#{employee2.id}").collection.should match_array [employee1, employee2]
+    end
   end
 
   describe '.where' do

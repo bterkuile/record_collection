@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2015-11-03 - v0.9.0
+-------------------
+
+### Added
+* Allow block without argument in before and after update hooks
+
 2015-11-03 - v0.8.3
 -------------------
 

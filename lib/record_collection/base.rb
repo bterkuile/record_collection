@@ -103,9 +103,21 @@ module RecordCollection
       after_blk = self.class.after_record_update
       before_blk = self.class.before_record_update
       each do |record|
-        before_blk.call(record) if before_blk
+        if before_blk
+          if before_blk.arity.zero?
+            record.instance_eval(&before_blk)
+          else
+            before_blk.call(record)
+          end
+        end
         record.update changed_attributes
-        after_blk.call(record) if after_blk
+        if after_blk
+          if after_blk.arity.zero?
+            record.instance_eval(&after_blk)
+          else
+            after_blk.call(record)
+          end
+        end
       end
       self
     end

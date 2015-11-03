@@ -28,6 +28,14 @@ module RecordCollection
         @record_class = klass
       end
 
+      def before_record_update(&blk)
+        if blk
+          @before_record_update = blk
+        else
+          @before_record_update
+        end
+      end
+
       def after_record_update(&blk)
         if blk
           @after_record_update = blk
@@ -93,7 +101,9 @@ module RecordCollection
 
     def update_collection_attributes!
       after_blk = self.class.after_record_update
+      before_blk = self.class.before_record_update
       each do |record|
+        before_blk.call(record) if before_blk
         record.update changed_attributes
         after_blk.call(record) if after_blk
       end

@@ -118,6 +118,19 @@ class MyAwesomeCollection < RecordCollection::Base
 end
 ```
 
+### The `before_record_update` hook
+The collection implements a general `update(attributes)` method that will
+update all the attributes that are set in the collection on the records it contains.
+If you want precondition your data you can do so in this hook:
+
+```ruby
+class Project::Prince2::Collection < RecordCollection::Base
+  before_record_update do |record|
+    record.plan_date_set = true if plan_date.present?
+  end
+end
+```
+
 ### The `after_record_update` hook
 The collection implements a general `update(attributes)` method that will
 update all the attributes that are set in the collection on the records it contains.

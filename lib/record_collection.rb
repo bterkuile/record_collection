@@ -9,5 +9,5 @@ require 'record_collection/rails/form_helper'
 require 'record_collection/engine'
 
 module RecordCollection
-  # Your code goes here...
+  mattr_accessor(:ids_separator){ '~' }
 end

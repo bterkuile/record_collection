@@ -2,7 +2,6 @@ module RecordCollection
   class Base
     include Enumerable
     include ActiveAttr::Model
-    STRING_IDS_SEPARATOR = '~'
 
     attr_reader :collection
     delegate :first, :last, :size, :length, :count, :empty?, :any?, to: :collection
@@ -57,7 +56,7 @@ module RecordCollection
       def find(ids)
         raise "Cannot call find on a collection object if there is no record_class defined" unless respond_to?(:record_class) && record_class
         collection = case ids.presence
-          when String then record_class.find(ids.split(STRING_IDS_SEPARATOR))
+          when String then record_class.find(ids.split(RecordCollection.ids_separator))
           when nil then []
           else record_class.find(Array.wrap(ids))
         end
@@ -104,6 +103,7 @@ module RecordCollection
       before_blk = self.class.before_record_update
       each do |record|
         if before_blk
+          #before_blk = before_blk.to_proc unless before_blk.is_a?(Proc) # Allow symbol to proc without cumbersome notation
           if before_blk.arity.zero?
             record.instance_eval(&before_blk)
           else
@@ -112,6 +112,7 @@ module RecordCollection
         end
         record.update changed_attributes
         if after_blk
+          #after_blk = after_blk.to_proc unless after_blk.is_a?(Proc) # Allow symbol to proc without cumbersome notation
           if after_blk.arity.zero?
             record.instance_eval(&after_blk)
           else

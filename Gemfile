@@ -13,6 +13,7 @@ end
 gem "rails", rails
 if rails_version == 'master'
   gem 'arel', github: 'rails/arel'
+  gem 'rack', github: 'rack/rack'
 end
 
 group :test do

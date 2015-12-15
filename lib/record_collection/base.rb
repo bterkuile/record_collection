@@ -65,11 +65,16 @@ module RecordCollection
 
       # Create a new collection with the scope set to the result of the query on the record_class
       def where(*args)
-        new record_class.where(*args)
+        self.new(record_class.where(*args))
       end
 
-      def all
-        new record_class.all
+      # Create a new collection with the scope set to the result of the query on the record_class
+      def joins(*args)
+        self.new(record_class.joins(*args))
+      end
+
+      def all(*args)
+        self.new(record_class.all(*args))
       end
     end
 
@@ -144,7 +149,7 @@ module RecordCollection
     # This method returns nil when the values of `attr` in the collection
     # are mixed. Otherwise the value itself. For boolean attributes the
     # check is wether the values are truthy or falsy. If the
-    #   set_if_nil: true 
+    #   set_if_nil: true
     # option is given, a uniform value will be set as the collection value if
     # it is not already set. This is important since there might be a uniform
     # value in the collection, but the values of the collection are a result of
@@ -172,6 +177,18 @@ module RecordCollection
     # delegate model name to class
     def model_name
       self.class.model_name
+    end
+
+    # update existing scope with new one having applied where clause if possible
+    def where(*args)
+      @collection = @collection.where(*args)
+      self
+    end
+
+    # update existing scope with new one having applied not clause if possible
+    def not(*args)
+      @collection = @collection.not(*args)
+      self
     end
   end
 end

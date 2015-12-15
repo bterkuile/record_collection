@@ -51,4 +51,28 @@ RSpec.describe Employee::Collection do
       described_class.all.collection.should eq [employee]
     end
   end
+
+  describe '.joins' do
+    let(:project_1){ Project.create name: 'P1', finished: true }
+    let(:project_2){ Project.create name: 'P2', finished: false }
+    let!(:employee_1){ Employee.create name: 'E1', section: 'ABC', project: project_1 }
+    let!(:employee_2){ Employee.create name: 'E1', section: 'ABC', project: project_2 }
+    it "returns a scope having a joins activated without further arguments" do
+      result = described_class.joins(:project)
+      result.should be_a RecordCollection::Base
+      result.map(&:project).should match_array [project_1, project_2]
+    end
+
+    it "modifies the scope when a .where clause is applied on an existing relation" do
+      result = described_class.joins(:project).where(projects: {finished: true})
+      result.should be_a RecordCollection::Base
+      result.map(&:project).should eq [project_1]
+    end
+
+    it "modifies the scope when a .where.not clause is applied on an existing relation" do
+      result = described_class.joins(:project).where.not(projects: {finished: true})
+      result.should be_a RecordCollection::Base
+      result.map(&:project).should eq [project_2]
+    end
+  end
 end

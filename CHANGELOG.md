@@ -1,6 +1,22 @@
 CHANGELOG
 =========
 
+2015-12-15 - v0.9.2
+-------------------
+
+### Added
+#### Allow initialize with multiple chaning scope
+```
+Employee::Collection.where(a: 1).where(b: 3)
+Employee::Collection.where(a: 1).where.not(b: 3)
+```
+
+2015-12-09 - v0.9.1
+-------------------
+
+### Added
+* Use string separator argument like: RecordCollection.id\_separator
+
 2015-11-03 - v0.9.0
 -------------------
 

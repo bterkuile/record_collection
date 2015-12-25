@@ -1,6 +1,11 @@
 ActionView::Helpers::FormHelper.class_eval do
   private
 
+  # This trick makes it possible to use the record_collection object
+  # directly in to forms and point to the proper controller action
+  # like:
+  #   = form_for @collection do |f|
+  #     = f.text_field :name
   alias_method :old_apply_form_for_options!, :apply_form_for_options!
   def apply_form_for_options!(record, object, options) #:nodoc:
     if record.is_a?(RecordCollection::Base)

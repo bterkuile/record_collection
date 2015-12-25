@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+2015-12-25 - v0.10.0
+--------------------
+### Changed
+* renamed uniform_collection_attribute to uniform_collection_value
+
+### Fixed
+* Make optionals active when all the values in the collection are nil
+
 2015-12-15 - v0.9.2
 -------------------
 
@@ -35,4 +43,3 @@ Employee::Collection.where(a: 1).where.not(b: 3)
 
 ### Added
 * Smarter find on collection object
-

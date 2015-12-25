@@ -61,52 +61,96 @@ RSpec.describe RecordCollection::Base do
     end
   end
 
-  describe '#uniform_collection_attribute' do
-    let(:collection_class){ ActiveCollectionTest }
-    describe 'boolean attribute' do
-      let(:record) { Struct.new(:check1) }
+  describe '#mixed_values_for_attribute?' do
+    context "TestCollection" do
+      let(:collection_class){ ActiveCollectionTest }
+      describe 'boolean attribute' do
+        let(:record) { Struct.new(:check1) }
 
-      it 'returns false for mixed falsy boolean values' do
-        expect( collection_class.new([record.new, record.new(false)]).uniform_collection_attribute(:check1)).to be false
+        it 'returns true for mixed falsy boolean values' do
+          expect( collection_class.new([record.new, record.new(false)]).mixed_values_for_attribute?(:check1)).to be true
+        end
+
+        it 'returns false for all truthy values' do
+          expect( collection_class.new([record.new(true), record.new(true)]).mixed_values_for_attribute?(:check1)).to be false
+        end
       end
 
-      it 'returns nil for mixes boolean values' do
-        expect( collection_class.new([record.new, record.new(true)]).uniform_collection_attribute(:check1)).to be nil
-      end
+      describe 'untyped attribute' do
+        let(:record) { Struct.new(:notes) }
+        it 'returns true for mixed values truthy and falsy' do
+          collection = collection_class.new([record.new, record.new('NOTE2')])
+          expect( collection.mixed_values_for_attribute? :notes ).to be true
+        end
 
-      it 'returns true for all truthy values' do
-        expect( collection_class.new([record.new(true), record.new(true)]).uniform_collection_attribute(:check1)).to be true
+        it 'returns true for mixed truthy values' do
+          collection = collection_class.new([record.new('NOTE1'), record.new('NOTE2')])
+          expect( collection.mixed_values_for_attribute? :notes ).to be true
+        end
+
+        it 'returns the value for all the same values, and sets the value if set_if_nil is given' do
+          collection = collection_class.new([record.new('NOTE2'), record.new('NOTE2')])
+          expect( collection.mixed_values_for_attribute? :notes, set_if_nil: true ).to be false
+          expect( collection.notes ).to eq 'NOTE2'
+        end
+
+        it "does not set value if there are mixed values" do
+          collection = collection_class.new([record.new('NOTE1'), record.new('NOTE2')])
+          expect( collection.mixed_values_for_attribute? :notes, set_if_nil: true ).to be true
+          collection.notes.should be_nil
+        end
       end
     end
+  end
 
-    describe 'untyped attribute' do
-      let(:record) { Struct.new(:notes) }
-      it 'returns nil for mixed values truthy and falsy' do
-        collection = collection_class.new([record.new, record.new('NOTE2')])
-        expect( collection.uniform_collection_attribute :notes ).to be nil
+  describe '#uniform_collection_value' do
+    context "TestCollection" do
+      let(:collection_class){ ActiveCollectionTest }
+      describe 'boolean attribute' do
+        let(:record) { Struct.new(:check1) }
+
+        it 'returns false for mixed falsy boolean values' do
+          expect( collection_class.new([record.new, record.new(false)]).uniform_collection_value(:check1)).to be false
+        end
+
+        it 'returns nil for mixes boolean values' do
+          expect( collection_class.new([record.new, record.new(true)]).uniform_collection_value(:check1)).to be nil
+        end
+
+        it 'returns true for all truthy values' do
+          expect( collection_class.new([record.new(true), record.new(true)]).uniform_collection_value(:check1)).to be true
+        end
       end
 
-      it 'returns nil for mixed truthy values' do
-        collection = collection_class.new([record.new('NOTE1'), record.new('NOTE2')])
-        expect( collection.uniform_collection_attribute :notes ).to be nil
-      end
+      describe 'untyped attribute' do
+        let(:record) { Struct.new(:notes) }
+        it 'returns nil for mixed values truthy and falsy' do
+          collection = collection_class.new([record.new, record.new('NOTE2')])
+          expect( collection.uniform_collection_value :notes ).to be nil
+        end
 
-      it 'returns the value for all the same values, but does not set the value' do
-        collection = collection_class.new([record.new('NOTE2'), record.new('NOTE2')])
-        expect( collection.uniform_collection_attribute :notes ).to eq 'NOTE2'
-        expect( collection.notes ).to be nil
-      end
+        it 'returns nil for mixed truthy values' do
+          collection = collection_class.new([record.new('NOTE1'), record.new('NOTE2')])
+          expect( collection.uniform_collection_value :notes ).to be nil
+        end
 
-      it 'returns the value for all the same values, and sets the value if set_if_nil is given' do
-        collection = collection_class.new([record.new('NOTE2'), record.new('NOTE2')])
-        expect( collection.uniform_collection_attribute :notes, set_if_nil: true ).to eq 'NOTE2'
-        expect( collection.notes ).to eq 'NOTE2'
-      end
+        it 'returns the value for all the same values, but does not set the value' do
+          collection = collection_class.new([record.new('NOTE2'), record.new('NOTE2')])
+          expect( collection.uniform_collection_value :notes ).to eq 'NOTE2'
+          expect( collection.notes ).to be nil
+        end
 
-      it 'returns the value for all the same values, and does not set the value if set_if_nil is given, but already set (eg: by invalid form)' do
-        collection = collection_class.new([record.new('NOTE2'), record.new('NOTE2')], notes: 'Invalid set form value')
-        expect( collection.uniform_collection_attribute :notes, set_if_nil: true ).to eq 'NOTE2'
-        expect( collection.notes ).to eq 'Invalid set form value'
+        it 'returns the value for all the same values, and sets the value if set_if_nil is given' do
+          collection = collection_class.new([record.new('NOTE2'), record.new('NOTE2')])
+          expect( collection.uniform_collection_value :notes, set_if_nil: true ).to eq 'NOTE2'
+          expect( collection.notes ).to eq 'NOTE2'
+        end
+
+        it 'returns the value for all the same values, and does not set the value if set_if_nil is given, but already set (eg: by invalid form)' do
+          collection = collection_class.new([record.new('NOTE2'), record.new('NOTE2')], notes: 'Invalid set form value')
+          expect( collection.uniform_collection_value :notes, set_if_nil: true ).to eq 'NOTE2'
+          expect( collection.notes ).to eq 'Invalid set form value'
+        end
       end
     end
   end

@@ -11,7 +11,7 @@ ActionView::Helpers::FormBuilder.class_eval do
   def collection_ids
     @collection_ids_already_added = true
     return "".html_safe unless object.respond_to?(:map)
-    object.map{|record| @template.hidden_field_tag('ids[]', record.id, id: nil) }.join.html_safe
+    @template.hidden_field_tag('ids', object.map(&:id).join(RecordCollection.ids_separator), id: nil).html_safe
   end
 
   def optional_boolean(attr, options = {})
@@ -58,15 +58,15 @@ ActionView::Helpers::FormBuilder.class_eval do
     attrs
   end
 
+  # The attribute is active if it is defined on the collection
+  # (this can be the case when setting it nil and a validation of another attribute failed)
+  # or the collection has no mixed values of that attribute
   def active_class(attr)
     active = false # default
-    if object.respond_to?(:uniform_collection_attribute)
-      uniform_value = object.uniform_collection_attribute(attr, set_if_nil: true)
-      # The field is active when the uniform value is not nil, 
-      # aka has a value
-      active = !uniform_value.nil?
+    if object.respond_to?(:mixed_values_for_attribute?)
+      active = !object.mixed_values_for_attribute?(attr, set_if_nil: true)
     end
-    active = true unless object.public_send(attr).nil? # Activate if collection or record attribute is not nil
+    active = true unless object[attr].nil? # Activate if collection or record attribute is not nil
     active ? 'active' : 'inactive'
   end
 end

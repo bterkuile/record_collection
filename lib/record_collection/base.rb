@@ -155,7 +155,7 @@ module RecordCollection
     # value in the collection, but the values of the collection are a result of
     # an invalid form submission. In this case you want to keep the values of the
     # submitted form as collection values, not the current uniform attribute.
-    def uniform_collection_attribute(attr, options = {})
+    def uniform_collection_value(attr, options = {})
       attribute_spec = self.class.attributes[attr]
       raise "Attribute #{attr} not defined on collection" unless attribute_spec
       if attribute_spec[:type] == Boolean
@@ -166,8 +166,17 @@ module RecordCollection
         results = map{|r| r.public_send(attr) }.uniq
       end
       return nil unless results.size == 1 # one value found
-      public_send("#{attr}=", results.first) if options[:set_if_nil] and public_send(attr).nil? # set value on the object if it is uniform and not yet set
+      self[attr] = results.first if options[:set_if_nil] and self[attr].nil?
       results.first
+    end
+
+    def mixed_values_for_attribute?(attr, options = {})
+      attribute_spec = self.class.attributes[attr]
+      raise "Attribute #{attr} not defined on collection" unless attribute_spec
+      collection_values = self.map{|r| r[attr] }.uniq
+      return true if collection_values.size > 1
+      self[attr] = collection_values.first if collection_values.any? and options[:set_if_nil]
+      false
     end
 
     def ids

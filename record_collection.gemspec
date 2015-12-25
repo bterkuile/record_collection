@@ -40,6 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "spring"
   spec.add_development_dependency "spring-commands-rspec"
   spec.add_development_dependency "quiet_assets"
+  spec.add_development_dependency "simple_form"
 
 
   spec.add_runtime_dependency 'active_attr', '>= 0.8'

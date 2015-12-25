@@ -20,6 +20,7 @@ DatabaseCleaner.clean_with :truncation
 RSpec.configure do |config|
   config.mock_with :rspec
   config.include Dummy::Application.routes.url_helpers, type: :feature
+  config.include RSpecHtmlMatchers
 
   config.before :each do
     Employee.delete_all

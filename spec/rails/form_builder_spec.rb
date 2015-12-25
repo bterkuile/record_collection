@@ -16,7 +16,12 @@ describe ActionView::Helpers::FormBuilder do
 
   describe '.collection_ids' do
     it 'returns the collection ids as hidden fields' do
-      subject.collection_ids.should eq %|<input type="hidden" name="ids" value="#{employee_1.id}~#{employee_2.id}" />|
+      #subject.collection_ids.should eq %|<input type="hidden" name="ids" value="#{employee_1.id}~#{employee_2.id}" />|
+      subject.collection_ids.should have_tag :input, with: {
+        type: 'hidden',
+        name: 'ids',
+        value: "#{employee_1.id}~#{employee_2.id}"
+      }
     end
 
     it "does not raise when the object is not a collection object" do
@@ -29,11 +34,13 @@ describe ActionView::Helpers::FormBuilder do
     it "generates proper output" do
       expect( subject ).to receive(:input).and_return "<simple-form-content>Simple Form Content</simple-form-content>".html_safe
       html = subject.optional_input(:section)
-      doc = Nokogiri::HTML(html)
-      doc.css("[name='ids'][value='#{employee_1.id}~#{employee_2.id}']").should be_present # add ids if not yet set
 
-      optional_div = doc.css("div.optional-input.optional-attribute-container.section.active[data-attribute='section'][data-one=false]").first
-      optional_div.text.should eq 'Simple Form Content'
+      html.should have_tag :input, with: {name: 'ids', value: "#{employee_1.id}~#{employee_2.id}"}
+      html.should have_tag :div, with: {
+        class: 'optional-input optional-attribute-container section active',
+        'data-attribute' => 'section',
+        'data-one' => false
+      }
     end
   end
 

@@ -46,7 +46,13 @@ ActionView::Helpers::FormBuilder.class_eval do
 
   def optional_form_element(element, attr, options = {})
     classes = get_optional_classes(attr, options.reverse_merge(base_class: 'optional-text-area'))
-    add_collection_ids @template.content_tag(:div, label(attr, options[:label]) + send(element, attr, options), class: classes, data: get_data_attributes(attr, options))
+    label_tag = label(attr, options[:label])
+    element_tag = send(element, attr, options)
+    content = label_tag + element_tag
+    # Hint tag is empty to make it easy to implement using js. Adding it as text is a better option than hiding the text.
+    # Graceful Degradation is not an option anyway
+    content += @template.content_tag(:span, nil, class: 'optional-attribute-hint', data: {hint: options[:hint]}) if options[:hint].present?
+    add_collection_ids @template.content_tag(:div, content, class: classes, data: get_data_attributes(attr, options))
   end
 
   private

@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2015-12-26 - v0.10.1
+--------------------
+### Added
+* Add hint option for optional booleans
+
 2015-12-25 - v0.10.0
 --------------------
 ### Changed

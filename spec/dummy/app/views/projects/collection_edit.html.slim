@@ -2,8 +2,9 @@ h1 Edit multiple projects
 = simple_form_for @collection, url: [:collection_update, @collection] do |f|
   = render 'form_errors', target: @collection
   .form-inputs= f.optional_boolean :finished, disabled: true
+  .form-inputs= f.optional_boolean :hint_visible, hint: "Check this one if the hint is visible. Hint testing"
   .form-inputs= f.optional_input :start_date
-  .form-inputs= f.optional_input :description
+  .form-inputs= f.optional_input :description, hint: "Hint normal display for other attributes, use .optional-attribute-hint with data-hint='abc' in your simple_form config to use the record_collection styling"
   .form-actions= f.submit
 .page-actions
   = link_to 'Back', employees_path

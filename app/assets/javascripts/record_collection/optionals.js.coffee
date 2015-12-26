@@ -11,12 +11,13 @@ class Optionals
         @prependActivator(container)
 
   # Replace the <input type="checkbox"> for a <input type="hidden" # value="0|1"> fields
-  # managed by the javascript
+  # managed by the javascript. The strategy is to completely rebuild the html structure
   optionalBoolean: (container)->
     check_box = container.find('input')
     initially_checked = check_box.is(':checked')
     field_name = check_box.attr('name')
     one = container.data('one')
+    hint_field = container.find('.optional-attribute-hint')
 
     label_text = container.find('label').text()
 
@@ -62,6 +63,7 @@ class Optionals
     container.append label
     container.append value_toggle
     container.append value_field
+    container.append hint_field if hint_field.length
     activator_toggle.hide() if one
 
   prependActivator: (container)->

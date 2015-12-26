@@ -54,3 +54,29 @@ $unchecked-color: #999
   &:not(.disabled)
     .optional-boolean-toggle
       cursor: pointer
+  .optional-attribute-hint
+    @extend .fa, .fa-2x, .fa-info-circle
+    margin-left: 10px
+    color: #888
+    cursor: pointer
+    position: relative
+    &::after
+      content: attr(data-hint)
+      font-size: 10px
+      position: absolute
+      z-index: 999
+      white-space: nowrap
+      bottom: 9999px
+      left: 80%
+      background-color: #000
+      color: #e0e0e0
+      padding: 0px 7px
+      line-height: 24px
+      height: 24px
+      opacity: 0
+      transition: opacity 0.4s ease-out
+    &:hover
+      color: #3636BD
+      &::after
+        opacity: 1
+        bottom: 0

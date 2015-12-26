@@ -1,6 +1,28 @@
 CHANGELOG
 =========
 
+2015-12-26 - v0.10.3
+--------------------
+### Added
+#### Add includes option for initializing a collection
+```
+  employees = Employee::Collection.includes(:project).where(state: 'active')
+  employee.map(&:project) #=> one query
+```
+
+####
+Add `#refine_relation` option to refine the collection by means of a
+scope or include
+```
+  class Employee
+    def self.with_project
+      includes(:project)
+    end
+  end
+  employees = Employee::Collection.where(state: 'active')
+  employees.refine_relation{ with_project } #=> collection object with refined ActiveRecord relation object if it is instantiated as such
+```
+
 2015-12-26 - v0.10.2
 --------------------
 ### Added

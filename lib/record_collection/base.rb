@@ -73,6 +73,11 @@ module RecordCollection
         self.new(record_class.joins(*args))
       end
 
+      # Create a new collection with the scope set to the result of the query on the record_class
+      def includes(*args)
+        self.new(record_class.includes(*args))
+      end
+
       def all(*args)
         self.new(record_class.all(*args))
       end
@@ -188,9 +193,28 @@ module RecordCollection
       self.class.model_name
     end
 
+    def refine_relation(&blk)
+      return self unless defined?(ActiveRecord::Relation)
+      return self unless @collection.is_a?(ActiveRecord::Relation)
+      @collection = @collection.instance_eval(&blk)
+      self
+    end
+
     # update existing scope with new one having applied where clause if possible
     def where(*args)
       @collection = @collection.where(*args)
+      self
+    end
+
+    # update existing scope with new one having applied joins clause if possible
+    def joins(*args)
+      @collection = @collection.joins(*args)
+      self
+    end
+
+    # update existing scope with new one having applied includes clause if possible
+    def includes(*args)
+      @collection = @collection.includes(*args)
       self
     end
 

@@ -52,6 +52,7 @@ ActionView::Helpers::FormBuilder.class_eval do
     # Hint tag is empty to make it easy to implement using js. Adding it as text is a better option than hiding the text.
     # Graceful Degradation is not an option anyway
     content += @template.content_tag(:span, nil, class: 'optional-attribute-hint', data: {hint: options[:hint]}) if options[:hint].present?
+    content += @template.content_tag(:span, options[:append_text], class: 'optional-attribute-append') if options[:append_text].present?
     add_collection_ids @template.content_tag(:div, content, class: classes, data: get_data_attributes(attr, options))
   end
 

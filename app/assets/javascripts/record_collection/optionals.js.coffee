@@ -18,6 +18,7 @@ class Optionals
     field_name = check_box.attr('name')
     one = container.data('one')
     hint_field = container.find('.optional-attribute-hint')
+    append_text_field = container.find('.optional-attribute-append')
 
     label_text = container.find('label').text()
 
@@ -64,6 +65,7 @@ class Optionals
     container.append value_toggle
     container.append value_field
     container.append hint_field if hint_field.length
+    container.append append_text_field if append_text_field.length
     activator_toggle.hide() if one
 
   prependActivator: (container)->

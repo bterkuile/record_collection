@@ -6,6 +6,7 @@ RSpec.feature "Hint with optional boolean", type: :feature do
     visit collection_edit_projects_path(ids: [project.id])
 
     page.should have_selector '.optional-attribute-container.hint_visible .optional-attribute-hint'
+    page.should have_selector '.optional-attribute-container.hint_visible .optional-attribute-append'
   end
 
 end

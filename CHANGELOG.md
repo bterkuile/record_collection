@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2015-12-26 - v0.10.2
+--------------------
+### Added
+* Add append_text option for optional booleans
+
 2015-12-26 - v0.10.1
 --------------------
 ### Added

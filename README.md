@@ -154,7 +154,11 @@ class EmployeesController < ApplicationController
 
   # GET /employees/collection_edit?ids[]=1&ids[]=3&...
   def collection_edit
-    @collection = Employee::Collection.find(params[:ids])
+    if params[:batch_id].present? # This is for feature demo, not for controller code practice
+      @collection = Employee::Collection.joins(:project).where(projects: {batch_id: params[:batch_id]})
+    else
+      @collection = Employee::Collection.find(params[:ids])
+    end
     redirect_to employees_path, alert: 'No employees selected' if @collection.empty?
   end
 

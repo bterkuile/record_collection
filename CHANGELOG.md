@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-2015-12-28 - v0.10.3
+2015-12-28 - v0.10.4
 --------------------
 ### Added
 * Allow #find(ids) on collection instance that could be the result of a

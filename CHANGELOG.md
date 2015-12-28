@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2015-12-28 - v0.10.3
+--------------------
+### Added
+* Allow #find(ids) on collection instance that could be the result of a
+  `joins` or an `includes` scope setup call
+
 2015-12-26 - v0.10.3
 --------------------
 ### Added

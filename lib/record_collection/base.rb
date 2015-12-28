@@ -46,7 +46,7 @@ module RecordCollection
       alias_method :old_validates, :validates
       def validates(attr, options)
         # Collection nil attributes mean they do not play a role for the collection.
-        # So validating when the value is nil is not the default behaviour. I to be turned on explicitly
+        # So validating when the value is nil is not the default behaviour. I to be used explicitly
         # by specifying allow_nil: false
         options[:allow_nil] = true unless options.has_key?(:allow_nil)
         old_validates attr, options
@@ -63,23 +63,15 @@ module RecordCollection
         self.new(collection)
       end
 
-      # Create a new collection with the scope set to the result of the query on the record_class
-      def where(*args)
-        self.new(record_class.where(*args))
-      end
-
-      # Create a new collection with the scope set to the result of the query on the record_class
-      def joins(*args)
-        self.new(record_class.joins(*args))
-      end
-
-      # Create a new collection with the scope set to the result of the query on the record_class
-      def includes(*args)
-        self.new(record_class.includes(*args))
-      end
-
-      def all(*args)
-        self.new(record_class.all(*args))
+      # instantiate a new instance of the collection with the
+      # scope set to the received argument:
+      #   Collection.joins(:project).where(projects: {state: 'active'})
+      # The joins returns the instance, the second where is handled by
+      # the instance itself as an instance delegate method
+      %i[where joins includes all].each do |delegate_method|
+        define_method delegate_method do |*args|
+          self.new(record_class.public_send(delegate_method, *args))
+        end
       end
     end
 
@@ -143,7 +135,7 @@ module RecordCollection
     end
 
     def persisted?
-      # Behave like an update in forms, this triggers plural routes
+      # Behave like a non persisted record in forms, this triggers plural (collection) routes
       false
     end
 
@@ -200,27 +192,17 @@ module RecordCollection
       self
     end
 
-    # update existing scope with new one having applied where clause if possible
-    def where(*args)
-      @collection = @collection.where(*args)
-      self
+    # delegate methods to the collection returning self
+    %i[joins includes where not].each do |delegate_method|
+      define_method delegate_method do |*args|
+        @collection = @collection.public_send(delegate_method, *args)
+        self
+      end
     end
 
-    # update existing scope with new one having applied joins clause if possible
-    def joins(*args)
-      @collection = @collection.joins(*args)
-      self
-    end
-
-    # update existing scope with new one having applied includes clause if possible
-    def includes(*args)
-      @collection = @collection.includes(*args)
-      self
-    end
-
-    # update existing scope with new one having applied not clause if possible
-    def not(*args)
-      @collection = @collection.not(*args)
+    def find(ids)
+      ids = ids.split(RecordCollection.ids_separator) if ids.is_a?(String)
+      @collection = @collection.find(Array.wrap(ids))
       self
     end
   end

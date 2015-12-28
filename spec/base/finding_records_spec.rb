@@ -23,6 +23,26 @@ RSpec.describe Employee::Collection do
         employee2 = Employee.create name: 'E2', section: 'QNP', admin: false, vegan: false
         described_class.find([employee1.id, employee2.id]).collection.should match_array [employee1, employee2]
       end
+
+      it "works with an includes statement (find on instance)" do
+        employee1 = Employee.create name: 'E1', section: 'ABC', admin: true, vegan: false
+        described_class.includes(:project).find([employee1.id]).should be_a RecordCollection::Base
+      end
+
+      it "works with an includes statement (find on instance) and string argument" do
+        employee1 = Employee.create name: 'E1', section: 'ABC', admin: true, vegan: false
+        employee2 = Employee.create name: 'E2', section: 'QNP', admin: false, vegan: false
+        result = described_class.includes(:project).find("#{employee1.id}~#{employee2.id}")
+        result.should be_a RecordCollection::Base
+        result.collection.should match_array [employee1, employee2]
+      end
+
+      it "works with an includes statement (find on instance) and integer id argument" do
+        employee1 = Employee.create name: 'E1', section: 'ABC', admin: true, vegan: false
+        result = described_class.includes(:project).find(employee1.id)
+        result.should be_a RecordCollection::Base
+        result.collection.should eq [employee1]
+      end
     end
 
     it "finds single id as string as collection" do

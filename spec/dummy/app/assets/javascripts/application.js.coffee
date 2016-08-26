@@ -12,4 +12,4 @@ $ ->
     $('#selected-records-action').click ->
       ids = selector.selected_ids()
       return alert "No records selected" unless ids.length
-      window.location = "/employees/collection_edit?#{$.param(ids: ids)}"
+      window.location.href = "/employees/collection_edit?#{$.param(ids: ids)}"

@@ -18,8 +18,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.7"
-  spec.add_development_dependency "rake", "~> 10.0"
+  #spec.add_development_dependency "bundler", "~> 1.7"
+  #spec.add_development_dependency "rake", "~> 10.0"
   #spec.add_development_dependency "rspec", ">= 3.1.0"
   spec.add_development_dependency "rspec-rails", "~> 3.1"
   spec.add_development_dependency "rspec-its"
@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "database_cleaner"
   spec.add_development_dependency "spring"
   spec.add_development_dependency "spring-commands-rspec"
-  spec.add_development_dependency "quiet_assets"
+  #spec.add_development_dependency "quiet_assets"
   spec.add_development_dependency "simple_form"
   spec.add_development_dependency "rspec-html-matchers"
 

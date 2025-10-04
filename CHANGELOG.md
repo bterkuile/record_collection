@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2025-10-04 - v1.0.0
+--------------------
+### Changed
+* Make it Rails 8.0.3 compatible. Might break older versions
+
 2015-12-28 - v0.10.4
 --------------------
 ### Added

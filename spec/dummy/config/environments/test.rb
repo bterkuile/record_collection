@@ -13,7 +13,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Configure static file server for tests with Cache-Control for performance.
-  if Rails.version.starts_with?('4')
+  if Rails.version.start_with?('4')
     config.serve_static_files   = true # rails < 5
     config.static_cache_control = 'public, max-age=3600' # rails < 5
   else

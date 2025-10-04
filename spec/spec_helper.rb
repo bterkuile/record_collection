@@ -1,6 +1,6 @@
 ENV["RAILS_ENV"] = "test"
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
+#require 'simplecov'
+#SimpleCov.start
 
 require 'pry'
 require File.expand_path("../../spec/dummy/config/environment.rb",  __FILE__)
@@ -13,9 +13,9 @@ require 'record_collection'
 require 'database_cleaner'
 require 'capybara/rails'
 require 'capybara/rspec'
-require 'capybara/poltergeist'
+#require 'capybara/poltergeist'
 
-Capybara.javascript_driver = :poltergeist
+Capybara.javascript_driver = :selenium
 DatabaseCleaner.clean_with :truncation
 RSpec.configure do |config|
   config.mock_with :rspec

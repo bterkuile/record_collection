@@ -3,8 +3,13 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in record_collection.gemspec
 gemspec
 
-gem "rails", "~> 5.0.0"
+gem "rails", "~> 8.0"
+
+group :development, :test do
+  gem 'puma'
+end
 
 group :test do
   gem "codeclimate-test-reporter", require: nil
+  gem 'selenium-webdriver'
 end
